@@ -1,0 +1,36 @@
+{
+    "name": "Deploy",
+    "description": "Deploy",
+    "keywords": ["Deploy"],
+    "env": {
+        "VmessUUID": {
+            "description": "Vmess UUID",
+            "value": "ad2c9acd-3afb-4fae-aff2-954c532020bd"
+        },
+        "VmessPATH": {
+            "description": "Vmess WS Path",
+            "value": "/"
+        },
+        "TrojanPassword": {
+            "description": "Trojan Password",
+            "value": "password"
+        },        
+        "TrojanPATH": {
+            "description": "Trojan WS Path",
+            "value": "/"
+        },
+        "ArgoCERT": {
+            "description": "Argo CERT",
+            "value": "CERT"
+        },
+        "ArgoJSON": {
+            "description": "Argo JSON",
+            "value": "JSON"
+        },
+        "ArgoDOMAIN": {
+            "description": "Argo DOMAIN",
+            "value": "DOMAIN"
+        }
+    },
+    "stack": "container"
+}
