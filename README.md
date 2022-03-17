@@ -47,15 +47,7 @@
  2. Vmess 协议 AlterID 为 0。
  3. 使用IP地址连接时，无tls加密配置，需要在 host 项指定域名，tls加密配置，需要在 host 项和 sni（serverName）项中指定域名。
  4. Vmess 协议全程加密，安全性最高。Trojan 协议自身无加密，依赖外层tls加密, 数据传输路径中如果 tls 被解密，原始传输数据有可能被获取。
- 5. Xray 核心的客户端直接在路径后面加?ed=2048即可启用 WS-0RTT, v2fly 核心需要在配置文件中添加如下配置：
-  
-```
-"wsSettings": {
-    "path": "${WSPATH}",
-    "maxEarlyData": 2048,
-    "earlyDataHeadName": "Sec-WebSocket-Protocol"
-}
-```
+ 5. Xray 核心的客户端直接在路径后面加?ed=2048即可启用 WS-0RTT。
 
 ## 接入 CloudFlare
 
