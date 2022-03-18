@@ -33,9 +33,9 @@
 | 变量 | 默认值 | 说明 |
 | :--- | :--- | :--- |
 | `VmessUUID` | `ad2c9acd-3afb-4fae-aff2-954c532020bd` | Vmess 用户 UUID，用于身份验证，务必修改，建议使用UUID生成工具 |
-| `VmessPATH` | `/` | Vmess Websocket 路径，务必修改为不包含敏感信息的路径 |
-| `TrojanPassword` | `password` | Trojan 协议密码，务必修改为强密码 |
-| `TrojanPATH` | `/` | Trojan Websocket 路径，务必修改为不包含敏感信息的路径，并且必须和 Vmess Websocket 路径不同。由于前置 Caddy 分流在路径结尾使用了正则通配符，如果 Vmess Websocket 路径为 /abc，Torjan Websocket 路径不能为 /abc123，可以是 /bcd123。 |
+| `VmessPATH` | `/8182cac2` | Vmess Websocket 路径，务必修改为不包含敏感信息的路径 |
+| `TrojanPassword` | `7e66d422` | Trojan 协议密码，务必修改为强密码 |
+| `TrojanPATH` | `/6c8760b7` | Trojan Websocket 路径，务必修改为不包含敏感信息的路径，并且必须和 Vmess Websocket 路径不同。由于前置 Caddy 分流在路径结尾使用了正则通配符，如果 Vmess Websocket 路径为 /abc，Torjan Websocket 路径不能为 /abc123，可以是 /bcd123。 |
 | `ArgoCERT` | `CERT` | Agro 证书，保持默认值为不启用 Argo 隧道 |
 | `ArgoJSON` | `JSON` | Argo 隧道 JSON 文件 |
 | `ArgoDOMAIN` | `DOMAIN` | Argo 隧道域名 |
