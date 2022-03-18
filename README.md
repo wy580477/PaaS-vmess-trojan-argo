@@ -14,7 +14,7 @@
 
  1. **本项目仅为学习用途，请勿滥用，类似 Heroku 的免费服务少之又少，且用且珍惜**
  2. 若使用域名接入 CloudFlare，请考虑启用 TLS 1.3
- 3. Heroku使用AWS服务器，Twiiter移动端app可能访问不正常，可以使用网页端或者Twitter Lite PWA应用。
+ 3. Heroku使用AWS服务器，Twitter移动端app可能访问不正常，可以使用网页端或者Twitter Lite PWA应用。
 
 ## 部署
 
@@ -35,7 +35,7 @@
 | `VmessUUID` | `ad2c9acd-3afb-4fae-aff2-954c532020bd` | Vmess 用户 UUID，用于身份验证，务必修改，建议使用UUID生成工具 |
 | `VmessPATH` | `/` | Vmess Websocket 路径，务必修改为不包含敏感信息的路径 |
 | `TrojanPassword` | `password` | Trojan 协议密码，务必修改为强密码 |
-| `TrojanPATH` | `/` | Trojan Websocket 路径，务必修改为不包含敏感信息的路径 |
+| `TrojanPATH` | `/` | Trojan Websocket 路径，务必修改为不包含敏感信息的路径，并且必须和 Vmess Websocket 路径不同。由于前置 Caddy 分流在路径结尾使用了正则通配符，如果 Vmess Websocket 路径为 /abc，Torjan Websocket 路径不能为 /abc123，可以是 /bcd123。 |
 | `ArgoCERT` | `CERT` | Agro 证书，保持默认值为不启用 Argo 隧道 |
 | `ArgoJSON` | `JSON` | Argo 隧道 JSON 文件 |
 | `ArgoDOMAIN` | `DOMAIN` | Argo 隧道域名 |
@@ -46,7 +46,7 @@
     （Trojan WS 80端口也可连接，但数据全程无加密，请勿使用）
  2. Vmess 协议 AlterID 为 0。
  3. 使用IP地址连接时，无tls加密配置，需要在 host 项指定域名，tls加密配置，需要在 host 项和 sni（serverName）项中指定域名。
- 4. Vmess 协议全程加密，安全性最高。Trojan 协议自身无加密，依赖外层tls加密, 数据传输路径中如果 tls 被解密，原始传输数据有可能被获取。
+ 4. Vmess 协议全程加密，安全性更高。Trojan 协议自身无加密，依赖外层tls加密, 数据传输路径中如果 tls 被解密，原始传输数据有可能被获取。
  5. Xray 核心的客户端直接在路径后面加?ed=2048即可启用 WS-0RTT，v2fly 核心需要在配置文件中添加如下配置：
 
 ```
