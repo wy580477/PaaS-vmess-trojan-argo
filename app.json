@@ -9,15 +9,15 @@
         },
         "VmessPATH": {
             "description": "Vmess WS Path",
-            "value": "/"
+            "value": "/8182cac2"
         },
         "TrojanPassword": {
             "description": "Trojan Password",
-            "value": "password"
+            "value": "7e66d422"
         },        
         "TrojanPATH": {
             "description": "Trojan WS Path",
-            "value": "/"
+            "value": "/6c8760b7"
         },
         "ArgoCERT": {
             "description": "Argo CERT",
