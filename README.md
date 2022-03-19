@@ -15,6 +15,7 @@
  1. **本项目仅为学习用途，请勿滥用，类似 Heroku 的免费服务少之又少，且用且珍惜**
  2. 若使用域名接入 CloudFlare，请考虑启用 TLS 1.3
  3. Heroku使用AWS服务器，Twitter移动端app可能访问不正常，可以使用网页端或者Twitter Lite PWA应用。
+ 4. Heroku容器无ipv6网络，不能访问ipv6地址。
 
 ## 部署
 
