@@ -65,6 +65,11 @@ inbounds:
     network: ws
     wsSettings:
       path: "${VmessPATH}"
+  sniffing:
+    enabled: true
+    destOverride:
+    - http
+    - tls
 - port: 10088
   protocol: trojan
   settings:
@@ -74,6 +79,11 @@ inbounds:
     network: ws
     wsSettings:
       path: "${TrojanPATH}"
+  sniffing:
+    enabled: true
+    destOverride:
+    - http
+    - tls
 outbounds:
 - protocol: freedom
   tag: direct
