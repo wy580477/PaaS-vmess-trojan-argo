@@ -92,8 +92,7 @@ outbounds:
 EOF
 
 # Get Ray executable release
-VERSION="$(curl --retry 10 --retry-max-time 60 https://api.github.com/repos/XTLS/Xray-core/releases/latest | jq .tag_name | sed 's/\"//g')"
-curl --retry 10 --retry-max-time 60 -H "Cache-Control: no-cache" -fsSL github.com/XTLS/Xray-core/releases//download/${VERSION}/Xray-linux-64.zip -o ${DIR_TMP}/ray_dist.zip
+curl --retry 10 --retry-max-time 60 -H "Cache-Control: no-cache" -fsSL https://github.com/XTLS/Xray-core/releases/latestest/download/Xray-linux-64.zip -o ${DIR_TMP}/ray_dist.zip
 busybox unzip ${DIR_TMP}/ray_dist.zip -d ${DIR_TMP}
 
 # Install Ray
