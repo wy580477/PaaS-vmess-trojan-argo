@@ -71,7 +71,7 @@
  1. 前提在 Cloudflare 上有一个托管的域名，以example.com为例
  2. 下载 [Cloudflared](https://github.com/cloudflare/cloudflared/releases)
  3. 运行 cloudflared login，此步让你绑定域名，然后会生成 CERT.PEM 证书文件
- 4. 运行 cloudflared creat tunnel 隧道名，此步会生成隧道 JSON 配置文件
+ 4. 运行 cloudflared tunnel create 隧道名，此步会生成隧道 JSON 配置文件
  5. 运行 cloudflared tunnel route dns 隧道名 argo.example.com, 生成cname记录，可以随意指定二级域名。
  6. 重复运行上面两步，可配置多个隧道。
  7. 部署时将 CERT.PEM 证书内容、JSON 隧道配置文件内容、域名填入对应变量。
