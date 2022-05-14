@@ -1,5 +1,5 @@
 log:
-  loglevel: debug
+  loglevel: info
 dns:
   servers:
   - https+local://8.8.8.8/dns-query
