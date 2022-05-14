@@ -7,21 +7,17 @@
             "description": "Vmess UUID",
             "value": "ad2c9acd-3afb-4fae-aff2-954c532020bd"
         },
-        "VmessPATH": {
-            "description": "Vmess WS Path",
-            "value": "/8182cac2"
+        "SecretPATH": {
+            "description": "Websocket base Path",
+            "value": "/secret"
         },
-        "TrojanPassword": {
-            "description": "Trojan Password",
+        "PASSWORD": {
+            "description": "Trojan & Shadowsocks Password",
             "value": "7e66d422"
         },        
-        "TrojanPATH": {
-            "description": "Trojan WS Path",
-            "value": "/6c8760b7"
-        },
         "ArgoCERT": {
             "description": "Argo CERT",
-            "value": "CERT"
+            "value": "Disable"
         },
         "ArgoJSON": {
             "description": "Argo JSON",

@@ -1,0 +1,24 @@
+#!/bin/sh
+
+DIR_CONFIG="/etc/config"
+
+# Config & Run argo tunnel
+if [ "${ArgoCERT}" = "Disable" ]; then
+    sleep infinity
+else
+    wget -O ${DIR_CONFIG}/cert.pem $ArgoCERT
+    echo $ArgoJSON > ${DIR_CONFIG}/argo.json
+    ARGOID="$(jq .TunnelID ${DIR_CONFIG}/argo.json | sed 's/\"//g')"
+    cat << EOF > ${DIR_CONFIG}/argo.yaml
+    tunnel: ${ARGOID}
+    credentials-file: ${DIR_CONFIG}/argo.json
+    ingress:
+      - hostname: ${ArgoDOMAIN}
+        service: http://localhost:8080
+      - service: http_status:404
+EOF
+wget --no-check-certificate -qO /usr/bin/argo https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
+chmod +x /usr/bin/argo
+exec 2>&1
+exec argo --loglevel info --origincert ${DIR_CONFIG}/cert.pem tunnel -config ${DIR_CONFIG}/argo.yaml run ${ARGOID}
+fi

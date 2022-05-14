@@ -1,8 +1,9 @@
 FROM alpine:latest
 
-ADD entrypoint.sh /opt/entrypoint.sh
+COPY ./content /workdir/
 
-RUN apk add --no-cache --virtual .build-deps ca-certificates curl caddy jq \
- && chmod +x /opt/entrypoint.sh
+RUN apk add --no-cache runit caddy \
+    && chmod +x /workdir/service/*/run \
+    && ln -s /workdir/service/* /etc/service/
 
-ENTRYPOINT ["sh", "-c", "/opt/entrypoint.sh"]
+ENTRYPOINT ["runsvdir", "-P", "/etc/service"]
