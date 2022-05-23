@@ -67,46 +67,12 @@
 以下三种方式均可以将应用接入 CloudFlare，解决Heroku无法直接连接问题，在某些网络环境下配合cloudflare优选ip可以提速。
 
  1. 为应用绑定域名，并将该域名接入 CloudFlare （需要 Heroku 信用卡认证账号）
- 2. 通过 CloudFlare Workers 反向代理，workers.dev域名被sni阻断，无法使用tls协议链接，只能用80端口无tls协议。
+ 2. 通过 CloudFlare Workers 反向代理，workers.dev域名被sni阻断，无法使用tls协议链接，可以使用80端口无tls协议连接。
  3. 通过 Argo 隧道接入 CloudFlare
 
 ### Cloudflare Workers反代
 
-   **单双日交替使用不同dyno绕过Heroku非信用卡验证账号每月550小时限制**
-
-- 需要两个Heroku账号分别部署使用相同变量设置的dyno
-- 登陆cloudflare账号
-- 点击左侧导航栏workers，选择Create a Service
-- 创建service以后，点击Quick Edit
-- 将如下代码粘贴进左侧编辑区
-
- ```
-const SingleDay = 'cloudreve1.herokuapp.com'
-const DoubleDay = 'cloudreve2.herokuapp.com'
-const timezone = 'Etc/GMT+2'; 
-
-addEventListener(
-    "fetch",event => { 
-
-        let localized_date = new Date(new Date().toLocaleString('en-US', { timeZone: timezone }));
-        if (localized_date.getDate()%2) {
-            host = SingleDay
-        } else {
-            host = DoubleDay
-        }
-
-        let url=new URL(event.request.url);
-        url.hostname=host;
-        let request=new Request(url,event.request);
-        event. respondWith(
-            fetch(request)
-        )
-    }
-)
-```
-
-- 第一行和第二行分别填单双日所使用的Heroku dyno域名，第三行是通过时区控制切换dyno的时间，范围从Etc/GMT-12到Etc/GMT+12。
-- 点击Save and Deploy即可生效。
+- [设置Cloudflare Workers服务](https://github.com/wy580477/PaaS-Related/blob/main/CF_Workers_Reverse_Proxy_chs.md)
 - 代理服务器地址/host域名/sni（serverName）填写上面创建的Workers service域名。
 
 ### Argo 隧道配置方式
