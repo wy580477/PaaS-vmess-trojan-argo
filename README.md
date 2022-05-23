@@ -41,8 +41,8 @@
 | `SecretPATH` | `/secret` | Websocket代理路径前缀，务必修改为不常见字符串 |
 | `PASSWORD` | `password` | Trojan 和 shadowsocks 协议密码，务必修改为强密码 |
 | `ArgoCERT` | `Disable` | Agro 证书，保持默认值为不启用 Argo 隧道 |
-| `ArgoJSON` | `JSON` | Argo 隧道 JSON 文件 |
-| `ArgoDOMAIN` | `DOMAIN` | Argo 隧道域名 |
+| `ArgoJSON` |  | Argo 隧道 JSON 文件 |
+| `ArgoDOMAIN` |  | Argo 隧道域名 |
 
 ## 客户端相关设置
 
@@ -61,6 +61,19 @@
     "earlyDataHeadName": "Sec-WebSocket-Protocol"
 }
 ```
+ <details>
+<summary>Vmess WS 配置示例</summary>
+ <img src="https://user-images.githubusercontent.com/98247050/169814131-73a32a4c-a4e8-48d7-981e-8747e6d07033.png"/>
+</details>
+ <details>
+<summary>Vmess WS TLS 配置示例</summary>
+ <img src="https://user-images.githubusercontent.com/98247050/169813997-36251e5c-d14c-4e55-a4b5-274b6ccc5e19.png"/>
+</details>
+ <details>
+<summary>Trojan WS TLS 配置示例</summary>
+ <img src="https://user-images.githubusercontent.com/98247050/169814349-69f26b20-03b3-4ef3-8bd6-09780ef0efb2.png"/>
+</details>
+
 
 ## <a id="cf"></a>接入 CloudFlare
 
