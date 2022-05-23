@@ -9,7 +9,7 @@
         },
         "SecretPATH": {
             "description": "Websocket base Path. Set this path to an uncommon path which doesn't contain sensitive information.",
-            "value": "/secret"
+            "value": "/mypath"
         },
         "PASSWORD": {
             "description": "Trojan & Shadowsocks Password",
