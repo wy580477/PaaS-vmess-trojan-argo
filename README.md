@@ -27,9 +27,11 @@
 
 **请勿使用本仓库直接部署**
 
- 1. Fork 本项目到自己的 GitHub 账户（用户名以 `example` 为例）
- 2. 修改项目名称，注意不要包含 `v2ray` 和 `heroku` 两个关键字（修改后的项目名以 `demo` 为例）
- 3. 登陆heroku后，浏览器访问 dashboard.heroku.com/new?template=<https://github.com/example/demo>
+ 1. 点击本仓库右上角Fork，再点击Create Fork。
+ 2. 在Fork出来的仓库页面上点击Setting，勾选Template repository。
+ 3. 然后点击Code返回之前的页面，点Setting下面新出现的按钮Use this template，起个随机名字创建新库。
+ 4. 项目名称注意不要包含 `v2ray` 和 `heroku` 两个关键字（用户名以 `example` 为例，修改后的项目名以 `demo` 为例）
+ 5. 登陆heroku后，浏览器访问 dashboard.heroku.com/new?template=<https://github.com/example/demo>
 
 ### 变量
 
