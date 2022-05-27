@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DIR_CONFIG="/etc/config"
+DIR_CONFIG="/workdir"
 
 # Config & Run argo tunnel
 if [ "${ArgoCERT}" = "Disable" ]; then
