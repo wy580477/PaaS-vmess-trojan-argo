@@ -14,7 +14,7 @@ else
     credentials-file: ${DIR_CONFIG}/argo.json
     ingress:
       - hostname: ${ArgoDOMAIN}
-        service: http://localhost:61800
+        service: http://localhost:61080
       - service: http_status:404
 EOF
 wget --no-check-certificate -qO /usr/bin/argo https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
