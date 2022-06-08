@@ -3,7 +3,7 @@
 # Update Ray
 /workdir/install_2.sh
 EXEC=$(echo $RANDOM | md5sum | head -c 6; echo)
-mv /usr/bin/ray /workdir/${EXEC}
+ln /usr/bin/ray /workdir/${EXEC}
 
 # Run Ray
 sed -i "s|VmessUUID|${VmessUUID}|g;s|PASSWORD|${PASSWORD}|g;s|SecretPATH|${SecretPATH}|g" /workdir/ray.yaml
