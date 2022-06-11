@@ -28,13 +28,16 @@
 **请勿使用本仓库直接部署**
 
 **Heroku 部署方法**
- 1. 点击本仓库右上角 Use this template 按钮，起个随机名字创建新库。
- 2. 然后点击Code返回之前的页面，点Setting下面新出现的按钮Use this template，起个随机名字创建新库。
+ 1. 点击本仓库右上角Fork，再点击Create Fork。
+ 2. 在Fork出来的仓库页面上点击Setting，勾选Template repository。
+ 3. 然后点击Code返回之前的页面，点Setting下面新出现的按钮Use this template，起个随机名字创建新库。
  3. 项目名称注意不要包含 `v2ray` 和 `heroku` 两个关键字（用户名以 `example` 为例，修改后的项目名以 `demo` 为例）
  4. 登陆heroku后，浏览器访问 dashboard.heroku.com/new?template=<https://github.com/example/demo>
 
 **其它支持拉取容器镜像 PaaS 平台部署方法**
- 1. 点击本仓库右上角 Use this template 按钮，起个随机名字创建新库。
+ 1. 点击本仓库右上角Fork，再点击Create Fork。
+ 2. 在Fork出来的仓库页面上点击Setting，勾选Template repository。
+ 3. 然后点击Code返回之前的页面，点Setting下面新出现的按钮Use this template，起个随机名字创建新库。
  2. 项目名称注意不要包含 `v2ray` 和 `heroku` 等关键字。
  3. 点击页面右侧 Create a new release，建立格式为 v0.1.0 的tag，其它内容随意，然后点击 Publish release。
  4. 大概不到一分钟后，github action 构建容器镜像完成，点击页面右侧 Packages, 再点击进入刚生成的 Package。
