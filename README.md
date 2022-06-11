@@ -6,13 +6,13 @@
 
 ## 概述
 
-本项目用于在 Heroku 上部署 Vmess WebSocket、Shadowsocks Websocket 和 Trojan Websocket 协议，支持 WS-0RTT 降低延迟，并可以启用 Cloudflare Argo 隧道。
+本项目用于在 Heroku 以及其它 PaaS 平台上部署 Vmess WebSocket、Shadowsocks Websocket 和 Trojan Websocket 协议，支持 WS-0RTT 降低延迟，并可以启用 Cloudflare Argo 隧道。
 
-部署完成后，每次启动 heroku dyno 时，xray 和 Loyalsoldier 路由规则文件将始终为最新版本。
+部署完成后，每次容器启动时，xray 和 Loyalsoldier 路由规则文件将始终为最新版本。
 
 ## 注意
 
- 1. **请勿滥用，Heroku账号封禁风险自负**
+ 1. **请勿滥用，Heroku 以及其它平台账号封禁风险自负**
  2. 若使用域名接入 CloudFlare，请考虑启用 TLS 1.3
  3. Heroku使用AWS服务器，Twitter移动端app可能访问不正常，可以使用网页端或者Twitter Lite PWA应用。
  4. Heroku容器无ipv6网络，不能访问ipv6地址。
@@ -27,11 +27,19 @@
 
 **请勿使用本仓库直接部署**
 
- 1. 点击本仓库右上角Fork，再点击Create Fork。
- 2. 在Fork出来的仓库页面上点击Setting，勾选Template repository。
- 3. 然后点击Code返回之前的页面，点Setting下面新出现的按钮Use this template，起个随机名字创建新库。
- 4. 项目名称注意不要包含 `v2ray` 和 `heroku` 两个关键字（用户名以 `example` 为例，修改后的项目名以 `demo` 为例）
- 5. 登陆heroku后，浏览器访问 dashboard.heroku.com/new?template=<https://github.com/example/demo>
+**Heroku 部署方法**
+ 1. 点击本仓库右上角 Use this template 按钮，起个随机名字创建新库。
+ 2. 然后点击Code返回之前的页面，点Setting下面新出现的按钮Use this template，起个随机名字创建新库。
+ 3. 项目名称注意不要包含 `v2ray` 和 `heroku` 两个关键字（用户名以 `example` 为例，修改后的项目名以 `demo` 为例）
+ 4. 登陆heroku后，浏览器访问 dashboard.heroku.com/new?template=<https://github.com/example/demo>
+
+**其它支持拉取容器镜像 PaaS 平台部署方法**
+ 1. 点击本仓库右上角 Use this template 按钮，起个随机名字创建新库。
+ 2. 项目名称注意不要包含 `v2ray` 和 `heroku` 等关键字。
+ 3. 点击页面右侧 Create a new release，建立格式为 v0.1.0 的tag，其它内容随意，然后点击 Publish release。
+ 4. 大概不到一分钟后，github action 构建容器镜像完成，点击页面右侧 Packages, 再点击进入刚生成的 Package。
+ 5. 点击页面右侧 Package settings，在页面最下方点击 Change visibility，选择 public 并输入 package 名称以确认。
+ 6. 容器镜像拉取地址在 package 页面 docker pull 命令示例中，其它部署步骤请参阅具体平台文档。需要设置的环境变量见下文，端口默认为3000，也可自行设置 PORT 环境变量更改。
 
 ### 变量
 
@@ -98,4 +106,4 @@
  5. 运行 cloudflared tunnel route dns 隧道名 argo.example.com, 生成cname记录，可以随意指定二级域名。
  6. 重复运行上面两步，可配置多个隧道。
  7. 部署时将 JSON 隧道配置文件内容、域名填入对应变量。
- 8. Dyno 休眠后，无法通过 Argo 隧道唤醒，保持长期运行建议使用 uptimerobot 之类网站监测服务定时 http ping xxx.herokuapp.com 或者 Cloudflare Workers 反代域名的地址。
+ 8. Heroku Dyno 休眠后，无法通过 Argo 隧道唤醒，保持长期运行建议使用 uptimerobot 之类网站监测服务定时 http ping xxx.herokuapp.com 或者 Cloudflare Workers 反代域名的地址。
