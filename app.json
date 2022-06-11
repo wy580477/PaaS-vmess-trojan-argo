@@ -12,20 +12,16 @@
             "value": "/mypath"
         },
         "PASSWORD": {
-            "description": "Trojan & Shadowsocks Password",
+            "description": "Trojan & Shadowsocks Password, recommend strong password.",
             "value": "password"
         },        
-        "ArgoCERT": {
-            "description": "Argo tunnel CERT",
-            "value": "Disable"
-        },
         "ArgoJSON": {
-            "description": "Argo tunnel JSON",
+            "description": "Argo tunnel JSON. Optional.",
             "required": false,
             "value": ""
         },
         "ArgoDOMAIN": {
-            "description": "Argo tunnel Domain",
+            "description": "Argo tunnel Domain. Optional, if you don't want to use Argo tunnel, you can ignore this.",
             "required": false,
             "value": ""
         }

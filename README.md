@@ -42,9 +42,8 @@
 | `VmessUUID` | `ad2c9acd-3afb-4fae-aff2-954c532020bd` | Vmess 用户 UUID，用于身份验证，务必修改，建议使用UUID生成工具 |
 | `SecretPATH` | `/mypath` | Websocket代理路径前缀，务必修改为不常见字符串 |
 | `PASSWORD` | `password` | Trojan 和 shadowsocks 协议密码，务必修改为强密码 |
-| `ArgoCERT` | `Disable` | Agro 证书，保持默认值为不启用 Argo 隧道 |
+| `ArgoDOMAIN` |  | Argo 隧道域名，保持默认空值为禁用 Argo 隧道 |
 | `ArgoJSON` |  | Argo 隧道 JSON 文件 |
-| `ArgoDOMAIN` |  | Argo 隧道域名 |
 
 ## 客户端相关设置
 
@@ -94,9 +93,9 @@
 
  1. 前提在 Cloudflare 上有一个托管的域名，以example.com为例
  2. 下载 [Cloudflared](https://github.com/cloudflare/cloudflared/releases)
- 3. 运行 cloudflared login，此步让你绑定域名，然后会生成 CERT.PEM 证书文件
- 4. 运行 cloudflared tunnel create 隧道名，此步会生成隧道 JSON 配置文件
+ 3. 运行 cloudflared login，此步让你绑定域名。
+ 4. 运行 cloudflared tunnel create 隧道名，此步会生成隧道 JSON 配置文件。
  5. 运行 cloudflared tunnel route dns 隧道名 argo.example.com, 生成cname记录，可以随意指定二级域名。
  6. 重复运行上面两步，可配置多个隧道。
- 7. 部署时将 CERT.PEM 证书内容、JSON 隧道配置文件内容、域名填入对应变量。
- 8. Dyno 休眠后，无法通过 Argo 隧道唤醒，保持长期运行建议使用uptimerobot之类网站监测服务定时 http ping xxx.herokuapp.com 或者 Cloudflare Workers 反代域名的地址。
+ 7. 部署时将 JSON 隧道配置文件内容、域名填入对应变量。
+ 8. Dyno 休眠后，无法通过 Argo 隧道唤醒，保持长期运行建议使用 uptimerobot 之类网站监测服务定时 http ping xxx.herokuapp.com 或者 Cloudflare Workers 反代域名的地址。

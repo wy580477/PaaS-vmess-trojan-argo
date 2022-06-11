@@ -3,10 +3,9 @@
 DIR_CONFIG="/workdir"
 
 # Config & Run argo tunnel
-if [ "${ArgoCERT}" = "Disable" ]; then
+if [ "${ArgoDOMAIN}" = "" ]; then
     sleep infinity
 else
-    wget -O ${DIR_CONFIG}/cert.pem $ArgoCERT
     echo $ArgoJSON > ${DIR_CONFIG}/argo.json
     ARGOID="$(jq .TunnelID ${DIR_CONFIG}/argo.json | sed 's/\"//g')"
     cat << EOF > ${DIR_CONFIG}/argo.yaml
@@ -17,8 +16,8 @@ else
         service: http://localhost:61080
       - service: http_status:404
 EOF
-wget --no-check-certificate -qO /usr/bin/argo https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
+wget -qO /usr/bin/argo https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
 chmod +x /usr/bin/argo
 exec 2>&1
-exec argo --loglevel info --origincert ${DIR_CONFIG}/cert.pem tunnel -config ${DIR_CONFIG}/argo.yaml run ${ARGOID}
+exec argo --loglevel info tunnel -config ${DIR_CONFIG}/argo.yaml run ${ARGOID}
 fi
