@@ -65,18 +65,26 @@
  1. 支持的协议：Vmess WS 80端口、Vmess WS TLS 443端口、Shadowsocks WS 80端口、Shadowsocks WS TLS 443端口、Trojan WS TLS 443端口、Vmess WS 80/8080端口 + Argo 隧道、Vmess WS TLS 443端口 + Argo 隧道。
     （Trojan WS 80端口也可连接，但数据全程无加密，请勿使用）
  2. Vmess 协议 AlterID 为 0。Shadowsocks加密方式为aes-128-gcm。
- 3. Websocket路径分别为，Vmess: \${SecretPATH}/vm，Shadowsocks：\${SecretPATH}/ss，trojan：\${SecretPATH}/tr。
+ 3. Websocket路径分别为:
+    ```
+    # Vmess
+    ${SecretPATH}/vm
+    # Shadowsocks
+    ${SecretPATH}/ss
+    # Trojan
+    ${SecretPATH}/tr
+    ```
  4. 使用IP地址连接时，无tls加密配置，需要在 host 项指定域名，tls加密配置，需要在sni（serverName）项中指定域名。
  5. Vmess 和 Shadowssocks 协议全程加密，安全性更高。Trojan 协议自身无加密，依赖外层tls加密, 数据传输路径中如果 tls 被解密，原始传输数据有可能被获取。
  6. Xray 核心的客户端直接在路径后面加?ed=2048即可启用 WS-0RTT，v2fly 核心需要在配置文件中添加如下配置：
 
-```
-"wsSettings": {
-    "path": "${WSPATH}",
-    "maxEarlyData": 2048,
-    "earlyDataHeadName": "Sec-WebSocket-Protocol"
-}
-```
+    ```
+    "wsSettings": {
+        "path": "${WSPATH}",
+        "maxEarlyData": 2048,
+        "earlyDataHeadName": "Sec-WebSocket-Protocol"
+    }
+    ```
 
  <details>
 <summary>Vmess WS 配置示例</summary>
