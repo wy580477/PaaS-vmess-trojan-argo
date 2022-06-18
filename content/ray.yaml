@@ -18,21 +18,6 @@ inbounds:
     destOverride:
     - http
     - tls
-- port: 61081
-  protocol: shadowsocks
-  settings:
-    password: PASSWORD
-    method: aes-128-gcm
-    ivcheck: true
-  streamSettings:
-    network: ws
-    wsSettings:
-      path: SecretPATH/ss
-  sniffing:
-    enabled: true
-    destOverride:
-    - http
-    - tls
 - port: 61082
   protocol: trojan
   settings:

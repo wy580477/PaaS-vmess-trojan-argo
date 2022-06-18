@@ -6,7 +6,7 @@
 
 ## 概述
 
-本项目用于在 Heroku 以及其它 PaaS 平台上部署 Vmess WebSocket、Shadowsocks Websocket 和 Trojan Websocket 协议，支持 WS-0RTT 降低延迟，并可以启用 Cloudflare Argo 隧道。
+本项目用于在 Heroku 以及其它 PaaS 平台上部署 Vmess WebSocket 和 Trojan Websocket 协议，支持 WS-0RTT 降低延迟，并可以启用 Cloudflare Argo 隧道。
 
 部署完成后，每次容器启动时，xray 和 Loyalsoldier 路由规则文件将始终为最新版本。
 
@@ -56,21 +56,19 @@
 | :--- | :--- | :--- |
 | `VmessUUID` | `ad2c9acd-3afb-4fae-aff2-954c532020bd` | Vmess 用户 UUID，用于身份验证，务必修改，建议使用UUID生成工具 |
 | `SecretPATH` | `/mypath` | Websocket代理路径前缀，务必修改为不常见字符串 |
-| `PASSWORD` | `password` | Trojan 和 shadowsocks 协议密码，务必修改为强密码 |
+| `PASSWORD` | `password` | Trojan 协议密码，务必修改为强密码 |
 | `ArgoDOMAIN` |  | Argo 隧道域名，保持默认空值为禁用 Argo 隧道 |
 | `ArgoJSON` |  | Argo 隧道 JSON 文件 |
 
 ## 客户端相关设置
 
- 1. 支持的协议：Vmess WS 80端口、Vmess WS TLS 443端口、Shadowsocks WS 80端口、Shadowsocks WS TLS 443端口、Trojan WS TLS 443端口、Vmess WS 80/8080端口 + Argo 隧道、Vmess WS TLS 443端口 + Argo 隧道。
+ 1. 支持的协议：Vmess WS 80端口、Vmess WS TLS 443端口、Trojan WS TLS 443端口、Vmess WS 80/8080端口 + Argo 隧道、Vmess WS TLS 443端口 + Argo 隧道。
     （Trojan WS 80端口也可连接，但数据全程无加密，请勿使用）
- 2. Vmess 协议 AlterID 为 0。Shadowsocks加密方式为aes-128-gcm。
+ 2. Vmess 协议 AlterID 为 0。
  3. Websocket路径分别为:
     ```
     # Vmess
     ${SecretPATH}/vm
-    # Shadowsocks
-    ${SecretPATH}/ss
     # Trojan
     ${SecretPATH}/tr
     ```
