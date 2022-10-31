@@ -14,7 +14,7 @@
 
 ## 注意
 
- 1. **请勿滥用，Heroku 以及其它平台账号封禁风险自负**
+ 1. **请勿滥用，PaaS 平台账号封禁风险自负**
  2. 若使用域名接入 CloudFlare，请考虑启用 TLS 1.3
  3. Heroku使用AWS服务器，Twitter移动端app可能访问不正常，可以使用网页端或者Twitter Lite PWA应用。
  4. Heroku容器无ipv6网络，不能访问ipv6地址。
