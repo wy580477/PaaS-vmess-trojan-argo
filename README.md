@@ -1,3 +1,5 @@
+## Heroku将于2022年11月末关闭免费服务
+
 ## 鸣谢
 
 - [Project X](https://github.com/XTLS/Xray-core)
@@ -6,7 +8,7 @@
 
 ## 概述
 
-本项目用于在 Heroku 以及其它 PaaS 平台上部署 Vmess WebSocket 和 Trojan Websocket 协议，支持 WS-0RTT 降低延迟，并可以启用 Cloudflare Argo 隧道。
+本项目用于在 PaaS 平台上部署 Vmess WebSocket 和 Trojan Websocket 协议，支持 WS-0RTT 降低延迟，并可以启用 Cloudflare Argo 隧道。
 
 部署完成后，每次容器启动时，xray 和 Loyalsoldier 路由规则文件将始终为最新版本。
 
@@ -27,15 +29,15 @@
 
 **请勿使用本仓库直接部署**
 
-**Heroku 部署方法**
- 1. 点击本仓库右上角Fork，再点击Create Fork。
- 2. 在Fork出来的仓库页面上点击Setting，勾选Template repository。
- 3. 然后点击Code返回之前的页面，点Setting下面新出现的按钮Use this template，起个随机名字创建新库。
- 3. 项目名称注意不要包含 `v2ray` 和 `heroku` 两个关键字（用户名以 `example` 为例，修改后的项目名以 `demo` 为例）
- 4. 登陆heroku后，浏览器访问 dashboard.heroku.com/new?template=<https://github.com/example/demo>
+~~**Heroku 部署方法**~~
+ ~~1. 点击本仓库右上角Fork，再点击Create Fork。~~
+ ~~2. 在Fork出来的仓库页面上点击Setting，勾选Template repository。~~
+ ~~3. 然后点击Code返回之前的页面，点Setting下面新出现的按钮Use this template，起个随机名字创建新库。~~
+ ~~3. 项目名称注意不要包含 `v2ray` 和 `heroku` 两个关键字（用户名以 `example` 为例，修改后的项目名以 `demo` 为例）~~
+ ~~4. 登陆heroku后，浏览器访问 dashboard.heroku.com/new?template=<https://github.com/example/demo>~~
 
  <details>
-<summary><b>其它支持拉取容器镜像 PaaS 平台部署方法</b></summary>
+<summary><b>支持拉取容器镜像 PaaS 平台部署方法</b></summary>
  
  1. 点击本仓库右上角Fork，再点击Create Fork。
  2. 在Fork出来的仓库页面上点击Setting，勾选Template repository。
