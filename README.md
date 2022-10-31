@@ -101,7 +101,7 @@
 
 ## <a id="cf"></a>接入 CloudFlare
 
-以下三种方式均可以将应用接入 CloudFlare，解决Heroku无法直接连接问题，在某些网络环境下配合cloudflare优选ip可以提速。
+以下三种方式均可以将应用接入 CloudFlare，在某些网络环境下配合cloudflare优选ip可以提速。
 
  1. 为应用绑定域名，并将该域名接入 CloudFlare （需要 Heroku 信用卡认证账号）
  2. 通过 CloudFlare Workers 反向代理，workers.dev域名被sni阻断，无法使用tls协议链接，可以使用80端口无tls协议连接。
