@@ -2,38 +2,54 @@ log:
   loglevel: info
 dns:
   servers:
-  - https+local://8.8.8.8/dns-query
+    - https+local://8.8.8.8/dns-query
 inbounds:
-- port: 61080
-  protocol: vmess
-  settings:
-    clients:
-    - id: VmessUUID
-  streamSettings:
-    network: ws
-    wsSettings:
-      path: SecretPATH/vm
-  sniffing:
-    enabled: true
-    destOverride:
-    - http
-    - tls
-- port: 61082
-  protocol: trojan
-  settings:
-    clients:
-    - password: PASSWORD
-  streamSettings:
-    network: ws
-    wsSettings:
-      path: SecretPATH/tr
-  sniffing:
-    enabled: true
-    destOverride:
-    - http
-    - tls
+  - port: 61080
+    protocol: vmess
+    settings:
+      clients:
+        - id: VmessUUID
+    streamSettings:
+      network: ws
+      wsSettings:
+        path: SecretPATH/vm
+    sniffing:
+      enabled: true
+      destOverride:
+        - http
+        - tls
+  - port: 61082
+    protocol: trojan
+    settings:
+      clients:
+        - password: "PASSWORD"
+    streamSettings:
+      network: ws
+      wsSettings:
+        path: SecretPATH/tr
+    sniffing:
+      enabled: true
+      destOverride:
+        - http
+        - tls
 outbounds:
-- protocol: freedom
-  tag: direct
-  settings:
-    domainStrategy: UseIPv4
+  - protocol: freedom
+    tag: direct
+    settings:
+      domainStrategy: UseIPv4
+  - protocol: socks
+    tag: tor
+    settings:
+      servers:
+        - address: 127.0.0.1
+          port: 9050
+routing:
+  domainStrategy: AsIs
+  domainMatcher: mph
+  rules:
+    - type: field
+      domains:
+        - regexp:.*\.onion$
+        - regexp:.*\.exit$
+        - regexp:.*\.tor$
+      outboundTag: tor
