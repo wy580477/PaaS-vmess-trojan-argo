@@ -8,7 +8,7 @@
 
 ## 概述
 
-本项目用于在 PaaS 平台上部署 Vmess WebSocket 和 Trojan Websocket 协议，支持 WS-0RTT 降低延迟，并可以启用 Cloudflare Argo 隧道。支持直接访问.onion tor 网络域名。
+本项目用于在 PaaS 平台上部署 Vmess WebSocket 和 Trojan Websocket 协议，支持 WS-0RTT 降低延迟，并可以启用 Cloudflare Argo 隧道。支持 CI/CD 和拉取容器镜像两种部署方式。支持直接访问.onion tor 网络域名。
 
 部署完成后，每次容器启动时，xray 和 Loyalsoldier 路由规则文件将始终为最新版本。
 
@@ -39,11 +39,11 @@
  1. 点击本仓库右上角Fork，再点击Create Fork。
  2. 在Fork出来的仓库页面上点击Setting，勾选Template repository。
  3. 然后点击Code返回之前的页面，点Setting下面新出现的按钮Use this template，起个随机名字创建新库。
- 2. 项目名称注意不要包含 `v2ray` 和 `heroku` 等关键字。
- 3. 点击页面右侧 Create a new release，建立格式为 v0.1.0 的tag，其它内容随意，然后点击 Publish release。
- 4. 大概不到一分钟后，github action 构建容器镜像完成，点击页面右侧 Packages, 再点击进入刚生成的 Package。
- 5. 点击页面右侧 Package settings，在页面最下方点击 Change visibility，选择 public 并输入 package 名称以确认。
- 6. 容器镜像拉取地址在 package 页面 docker pull 命令示例中，其它部署步骤请参阅具体平台文档。需要设置的环境变量见下文，端口默认为3000，也可自行设置 PORT 环境变量更改。
+ 4. 项目名称注意不要包含 `v2ray` 和 `heroku` 等关键字。
+ 5. 点击页面右侧 Create a new release，建立格式为 v0.1.0 的tag，其它内容随意，然后点击 Publish release。
+ 6. 大概不到一分钟后，github action 构建容器镜像完成，点击页面右侧 Packages, 再点击进入刚生成的 Package。
+ 7. 点击页面右侧 Package settings，在页面最下方点击 Change visibility，选择 public 并输入 package 名称以确认。
+ 8. 容器镜像拉取地址在 package 页面 docker pull 命令示例中，其它部署步骤请参阅具体平台文档。需要设置的环境变量见下文，内部监听端口默认为3000，也可自行设置 PORT 环境变量更改。
 
 </details>
 
@@ -61,7 +61,7 @@
 
 ## 客户端相关设置
 
- 1. 支持的协议：Vmess WS 80端口、Vmess WS TLS 443端口、Trojan WS TLS 443端口、Vmess WS 80/8080端口 + Argo 隧道、Vmess WS TLS 443端口 + Argo 隧道。
+ 1. 支持的协议：Vmess WS 80端口（仅限PaaS服务平台支持80端口http协议入站）、Vmess WS TLS 443端口、Trojan WS TLS 443端口、Vmess WS 80/8080端口 + Argo 隧道、Vmess WS TLS 443端口 + Argo 隧道。
     （Trojan WS 80端口也可连接，但数据全程无加密，请勿使用）
  2. Vmess 协议 AlterID 为 0。
  3. Websocket路径分别为:
@@ -72,7 +72,7 @@
     ${SecretPATH}/tr
     ```
  4. 使用IP地址连接时，无tls加密配置，需要在 host 项指定域名，tls加密配置，需要在sni（serverName）项中指定域名。
- 5. Vmess 和 Shadowssocks 协议全程加密，安全性更高。Trojan 协议自身无加密，依赖外层tls加密, 数据传输路径中如果 tls 被解密，原始传输数据有可能被获取。
+ 5. Vmess 协议全程加密，安全性更高。Trojan 协议自身无加密，依赖外层tls加密, 数据传输路径中如果 tls 被解密，原始传输数据有可能被获取。
  6. Xray 核心的客户端直接在路径后面加?ed=2048即可启用 WS-0RTT，v2fly 核心需要在配置文件中添加如下配置：
 
     ```
