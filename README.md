@@ -15,6 +15,8 @@
 ## 注意
 
  **请勿滥用，PaaS 平台账号封禁风险自负**
+ 
+ 目前已知会触发风控的 PaaS 平台：Railway，Okteto，Clever Cloud
 
 [部署方式](#部署方式)
 
