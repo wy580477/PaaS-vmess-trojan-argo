@@ -32,6 +32,7 @@ inbounds:
       destOverride:
         - http
         - tls
+        - quic
 outbounds:
   - protocol: freedom
     tag: direct
@@ -50,6 +51,4 @@ routing:
     - type: field
       domains:
         - regexp:.*\.onion$
-        - regexp:.*\.exit$
-        - regexp:.*\.tor$
       outboundTag: tor
