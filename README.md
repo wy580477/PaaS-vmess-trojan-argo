@@ -178,4 +178,4 @@
  5. 运行 cloudflared tunnel route dns 隧道名 argo.example.com, 生成cname记录，可以随意指定二级域名。
  6. 重复运行上面两步，可配置多个隧道。
  7. 部署时将 JSON 隧道配置文件内容、域名填入对应变量。
- 8. Heroku Dyno 休眠后，无法通过 Argo 隧道唤醒，保持长期运行建议使用 uptimerobot 之类网站监测服务定时 http ping xxx.herokuapp.com 或者 Cloudflare Workers 反代域名的地址。
+ 8. Heroku Dyno 休眠后，无法通过 Cloudflared 隧道唤醒，保持长期运行建议使用 uptimerobot 之类网站监测服务定时 http ping xxx.herokuapp.com 或者 Cloudflare Workers 反代域名的地址。
