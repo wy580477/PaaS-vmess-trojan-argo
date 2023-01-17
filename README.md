@@ -116,7 +116,7 @@
 | `VmessUUID` | `ad2c9acd-3afb-4fae-aff2-954c532020bd` | Vmess 用户 UUID，用于身份验证，务必修改，建议使用UUID生成工具 |
 | `SecretPATH` | `/mypath` | Websocket代理路径前缀，务必修改为不常见字符串 |
 | `PASSWORD` | `password` | Trojan 协议密码，务必修改为强密码 |
-| `ArgoDOMAIN` |  | Cloudflared 隧道域名，保持默认空值为禁用 Argo 隧道 |
+| `ArgoDOMAIN` |  | Cloudflared 隧道域名，保持默认空值为禁用 Cloudflared 隧道 |
 | `ArgoJSON` |  | Cloudflared 隧道 JSON 文件 |
 
 ## 客户端相关设置
