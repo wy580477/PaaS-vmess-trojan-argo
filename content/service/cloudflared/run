@@ -16,7 +16,7 @@ else
         service: http://localhost:61080
       - service: http_status:404
 EOF
-wget -qO /usr/bin/argo https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
+wget -4qO /usr/bin/argo https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
 chmod +x /usr/bin/argo
 exec 2>&1
 exec argo --loglevel info tunnel -config ${DIR_CONFIG}/argo.yaml run ${ARGOID}

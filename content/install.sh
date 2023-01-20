@@ -32,7 +32,7 @@ get_current_version() {
 
 get_latest_version() {
     # Get latest release version number
-    RELEASE_LATEST="$(curl -IkLs -o ${TMP_DIRECTORY}/NUL -w %{url_effective} https://github.com/XTLS/Xray-core/releases/latest | grep -o "[^/]*$")"
+    RELEASE_LATEST="$(curl -4IkLs -o ${TMP_DIRECTORY}/NUL -w %{url_effective} https://github.com/XTLS/Xray-core/releases/latest | grep -o "[^/]*$")"
     RELEASE_LATEST="v${RELEASE_LATEST#v}"
     if [[ -z "$RELEASE_LATEST" ]]; then
         echo "error: Failed to get the latest release version, please check your network."
@@ -42,12 +42,12 @@ get_latest_version() {
 
 download_xray() {
     DOWNLOAD_LINK="https://github.com/XTLS/Xray-core/releases/download/$INSTALL_VERSION/Xray-linux-64.zip"
-    if ! wget -qO "$ZIP_FILE" "$DOWNLOAD_LINK"; then
+    if ! wget -4qO "$ZIP_FILE" "$DOWNLOAD_LINK"; then
         echo 'error: Download failed! Please check your network or try again.'
         return 1
     fi
     return 0
-    if ! wget -qO "$ZIP_FILE.dgst" "$DOWNLOAD_LINK.dgst"; then
+    if ! wget -4qO "$ZIP_FILE.dgst" "$DOWNLOAD_LINK.dgst"; then
         echo 'error: Download failed! Please check your network or try again.'
         return 1
     fi
@@ -83,11 +83,11 @@ install_xray() {
 
 install_geodata() {
     download_geodata() {
-        if ! wget -qO "${dir_tmp}/${2}" "${1}"; then
+        if ! wget -4qO "${dir_tmp}/${2}" "${1}"; then
             echo 'error: Download failed! Please check your network or try again.'
             exit 1
         fi
-        if ! wget -qO "${dir_tmp}/${2}.sha256sum" "${1}.sha256sum"; then
+        if ! wget -4qO "${dir_tmp}/${2}.sha256sum" "${1}.sha256sum"; then
             echo 'error: Download failed! Please check your network or try again.'
             exit 1
         fi
