@@ -121,7 +121,7 @@
 
 ## 客户端相关设置
 
- 1. 支持的协议：Vmess WS 80端口（仅限PaaS服务平台支持80端口http协议入站）、Vmess WS TLS 443端口、Trojan WS TLS 443端口、Vmess WS 80/8080端口 + Argo 隧道、Vmess WS TLS 443端口 + Argo 隧道。
+ 1. 支持的协议：Vmess WS 80端口（仅限PaaS服务平台支持80端口http协议入站）、Vmess WS TLS 443端口、Trojan WS TLS 443端口、Vmess WS 80/8080端口 + Cloudflared 隧道、Vmess WS TLS 443端口 + Cloudflared 隧道。
     （Trojan WS 80端口也可连接，但数据全程无加密，请勿使用）
  2. Vmess 协议 AlterID 为 0。
  3. Websocket路径分别为:
