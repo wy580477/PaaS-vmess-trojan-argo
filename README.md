@@ -10,9 +10,11 @@
 
 本项目用于在 PaaS 平台上部署 Vmess WebSocket 和 Trojan Websocket 协议，并可以启用 Cloudflared 隧道。
 
-支持 WS-0RTT 降低延迟，Xray 核心客户端在 Websocket 路径后加上 ?ed=2048 即可启用。
-
 支持 CI/CD 和拉取容器镜像两种部署方式。支持直接访问.onion tor 网络域名。
+
+集成 [NodeStatus](https://github.com/cokemine/nodestatus) 探针客户端。
+
+支持 WS-0RTT 降低延迟，Xray 核心客户端在 Websocket 路径后加上 ?ed=2048 即可启用。
 
 部署完成后，每次容器启动时，xray 和 Loyalsoldier 路由规则文件将始终为最新版本。
 
@@ -109,15 +111,16 @@
 
 ### 变量
 
-对部署时需设定的变量名称做如下说明。
+对部署时需设定的变量做如下说明。
 
 | 变量 | 默认值 | 说明 |
 | :--- | :--- | :--- |
 | `VmessUUID` | `ad2c9acd-3afb-4fae-aff2-954c532020bd` | Vmess 用户 UUID，用于身份验证，务必修改，建议使用UUID生成工具 |
 | `SecretPATH` | `/mypath` | Websocket代理路径前缀，务必修改为不常见字符串 |
 | `PASSWORD` | `password` | Trojan 协议密码，务必修改为强密码 |
-| `ArgoDOMAIN` |  | Cloudflared 隧道域名，保持默认空值为禁用 Cloudflared 隧道 |
-| `ArgoJSON` |  | Cloudflared 隧道 JSON 文件 |
+| `ArgoDOMAIN` |  | 可选，Cloudflared 隧道域名，保持默认空值为禁用 Cloudflared 隧道 |
+| `ArgoJSON` |  | 可选，Cloudflared 隧道 JSON 文件 |
+| `NodeStatus_DSN` |  | 可选，NodeStatus 探针服务端连接信息，保持默认空值为禁用。示例：wss://username:password@status.mydomain.com |
 
 ## 客户端相关设置
 
