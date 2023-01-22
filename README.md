@@ -8,15 +8,17 @@
 
 ## 概述
 
-本项目用于在 PaaS 平台上部署 Vmess WebSocket 和 Trojan Websocket 协议，并可以启用 Cloudflared 隧道。
+1. 本项目用于在 PaaS 平台上部署 Vmess WebSocket 和 Trojan Websocket 协议，支持 CI/CD 和拉取容器镜像两种部署方式。
 
-支持 CI/CD 和拉取容器镜像两种部署方式。支持直接访问.onion tor 网络域名。
+2. 可以启用 Cloudflared 隧道，以内网穿透模式接入 Cloudflare，可以使用 Cloudflare 支持的全部二十多个端口。
 
-集成 [NodeStatus](https://github.com/cokemine/nodestatus) 探针客户端。
+3. 支持直接访问.onion tor 网络域名（需要客户端使用 socks/http 代理方式或者 Fakeip/Fakedns 透明代理环境）。
 
-支持 WS-0RTT 降低延迟，Xray 核心客户端在 Websocket 路径后加上 ?ed=2048 即可启用。
+4. 集成 [NodeStatus](https://github.com/cokemine/nodestatus) 探针客户端。[NodeStatus 服务端](https://github.com/wy580477/NodeStatus-Docker)也可以部署在 PaaS 平台上。
 
-部署完成后，每次容器启动时，xray 和 Loyalsoldier 路由规则文件将始终为最新版本。
+5. 支持 WS-0RTT 降低延迟，Xray 核心客户端在 Websocket 路径后加上 ?ed=2048 即可启用。
+
+6. 部署完成后，每次容器启动时，Xray 和 Loyalsoldier 路由规则文件将始终为最新版本。
 
 ## 注意
 
@@ -74,6 +76,8 @@
 
  <details>
 <summary><b>Patr 部署方法</b></summary>
+
+**1/23 更新：Patr 故障中，如要部署，请自行搜索构建镜像推送到 Docker Hub 的教程，在 codespace 中操作即可。**
  
  1. 点击本项目网页上部 Code 按钮，再点击 Create codespace on main。
  
@@ -124,8 +128,11 @@
 
 ## 客户端相关设置
 
- 1. 支持的协议：Vmess WS 80端口（仅限PaaS服务平台支持80端口http协议入站）、Vmess WS TLS 443端口、Trojan WS TLS 443端口、Vmess WS 80/8080端口 + Cloudflared 隧道、Vmess WS TLS 443端口 + Cloudflared 隧道。
-    （Trojan WS 80端口也可连接，但数据全程无加密，请勿使用）
+ 1. 支持的协议：Vmess WS 80端口（仅限 Heroku）、Vmess WS TLS 443端口、Trojan WS TLS 443端口、Vmess WS 80/8080等端口 + Cloudflared 隧道、Vmess WS TLS 443/8443等端口 + Cloudflared 隧道。
+
+    Cloudflared 隧道模式可以使用 Cloudflare 支持的全部端口：https://developers.cloudflare.com/fundamentals/get-started/reference/network-ports/
+
+    （Trojan WS 80端口在 Heroku 部署上也可连接，但数据全程无加密，请勿使用）
  2. Vmess 协议 AlterID 为 0。
  3. Websocket路径分别为:
     ```
@@ -181,4 +188,4 @@
  5. 运行 cloudflared tunnel route dns 隧道名 argo.example.com, 生成cname记录，可以随意指定二级域名。
  6. 重复运行上面两步，可配置多个隧道。
  7. 部署时将 JSON 隧道配置文件内容、域名填入对应变量。
- 8. Heroku Dyno 休眠后，无法通过 Cloudflared 隧道唤醒，保持长期运行建议使用 uptimerobot 之类网站监测服务定时 http ping xxx.herokuapp.com 或者 Cloudflare Workers 反代域名的地址。
+ 8. 如果 PaaS 平台有容器空闲休眠的限制，无法通过 Cloudflared 隧道唤醒容器，保持长期运行建议使用 uptimerobot 之类网站监测服务定时 http ping PaaS 平台所提供的域名地址。
