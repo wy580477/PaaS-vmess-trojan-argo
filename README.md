@@ -10,7 +10,7 @@
 
 1. 本项目用于在 PaaS 平台上部署 Vmess WebSocket 和 Trojan Websocket 协议，支持 CI/CD 和拉取容器镜像两种部署方式。
 
-2. 可以启用 Cloudflared 隧道，以内网穿透模式接入 Cloudflare，可以使用 Cloudflare 支持的全部二十多个端口。
+2. 可以启用 Cloudflared 隧道，以内网穿透模式接入 Cloudflare，可以使用 Cloudflare 支持的全部十多个端口。
 
 3. 支持直接访问.onion tor 网络域名（需要客户端使用 socks/http 代理方式或者 Fakeip/Fakedns 透明代理环境）。
 
@@ -128,11 +128,11 @@
 
 ## 客户端相关设置
 
- 1. 支持的协议：Vmess WS 80端口（仅限 Heroku）、Vmess WS TLS 443端口、Trojan WS TLS 443端口、Vmess WS 80/8080等端口 + Cloudflared 隧道、Vmess WS TLS 443/8443等端口 + Cloudflared 隧道。
+ 1. 支持的协议：Vmess WS 80端口（仅限 Heroku）、Vmess WS TLS 443端口、Trojan WS TLS 443端口、Vmess WS 80/8080等端口 + Cloudflared 隧道、Vmess WS TLS 443/8443等端口 + Cloudflared 隧道、Trojan WS TLS 443/8443等端口 + Cloudflared 隧道。
 
     Cloudflared 隧道模式可以使用 Cloudflare 支持的全部端口：https://developers.cloudflare.com/fundamentals/get-started/reference/network-ports/
 
-    （Trojan WS 80端口在 Heroku 部署上也可连接，但数据全程无加密，请勿使用）
+    （Trojan WS http 端口也可连接，但数据全程无加密，请勿使用）
  2. Vmess 协议 AlterID 为 0。
  3. Websocket路径分别为:
     ```
