@@ -4,15 +4,17 @@
 		header Upgrade websocket
 		path {$SecretPATH}/vm*
 	}
-	handle @websockets {
-		reverse_proxy * localhost:61080
+	reverse_proxy @websockets {
+		to localhost:61080
+		trusted_proxies private_ranges
 	}
 	@websockets-tr {
 		header Connection *Upgrade*
 		header Upgrade websocket
 		path {$SecretPATH}/tr*
 	}
-	handle @websockets-tr {
-		reverse_proxy * localhost:61082
+	reverse_proxy @websockets-tr {
+		to localhost:61082
+		trusted_proxies private_ranges
 	}
 }
