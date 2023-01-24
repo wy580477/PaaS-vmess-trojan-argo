@@ -142,6 +142,7 @@
     # Trojan
     ${SecretPATH}/tr
     ```
+    为了减少特征，浏览器直接访问Websocket路径，会返回401而不是bad request。
  4. 使用IP地址连接时，无tls加密配置，需要在 host 项指定域名，tls加密配置，需要在sni（serverName）项中指定域名。
  5. Vmess 协议全程加密，安全性更高。Trojan 协议自身无加密，依赖外层tls加密, 数据传输路径中如果 tls 被解密，原始传输数据有可能被获取。
  6. Xray 核心的客户端直接在路径后面加 ?ed=2048 即可启用 WS-0RTT，v2fly 核心需要在配置文件中添加如下配置：

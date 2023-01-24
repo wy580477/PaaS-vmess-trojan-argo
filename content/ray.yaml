@@ -4,7 +4,7 @@ dns:
   servers:
     - https+local://8.8.8.8/dns-query
 inbounds:
-  - port: 61080
+  - listen: "/run/@vmess.sock,0666"
     protocol: vmess
     settings:
       clients:
@@ -19,7 +19,7 @@ inbounds:
         - http
         - tls
         - quic
-  - port: 61082
+  - listen: "/run/@trojan.sock,0666"
     protocol: trojan
     settings:
       clients:
