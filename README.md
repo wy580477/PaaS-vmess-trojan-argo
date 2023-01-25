@@ -133,7 +133,6 @@
 
     Cloudflared 隧道模式可以使用 Cloudflare 支持的全部端口：https://developers.cloudflare.com/fundamentals/get-started/reference/network-ports/
 
-    （Trojan WS http 端口也可连接，但数据全程无加密，请勿使用）
  2. Vmess 协议 AlterID 为 0。
  3. Websocket路径分别为:
     ```

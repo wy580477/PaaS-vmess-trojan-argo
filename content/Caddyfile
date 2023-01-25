@@ -13,6 +13,10 @@
 		respond * 401
 	}
 	handle {$SecretPATH}/tr* {
+		@http-req {
+			header X-Forwarded-Proto http
+		}
+		redir @http-req https://{host}{uri}
 		@websocket-tr {
 			header Connection *Upgrade*
 			header Upgrade websocket
