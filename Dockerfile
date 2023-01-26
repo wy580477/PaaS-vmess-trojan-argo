@@ -2,7 +2,7 @@ FROM alpine:latest
 
 COPY ./content /workdir/
 
-RUN apk add --no-cache curl runit caddy jq tor wget \
+RUN apk add --no-cache curl runit caddy jq tor wget bash \
     && chmod +x /workdir/service/*/run /workdir/*.sh \
     && /workdir/install.sh \
     && ln -s /workdir/service/* /etc/service/
