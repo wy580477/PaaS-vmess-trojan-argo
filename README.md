@@ -17,6 +17,15 @@
 
 4. 支持 WS-0RTT 降低延迟，Xray 核心客户端在 Websocket 路径后加上 ?ed=2048 即可启用。
 
+5. 支持 Clash api，可以连接 [yacd 面板](https://github.com/haishanh/yacd)，查看当前速度、连接、日志等信息。
+
+      <details>
+      <summary>截图</summary>
+
+      ![image](https://user-images.githubusercontent.com/98247050/216765395-ae682987-141a-4041-b8e2-cec800cb0f4a.png)
+
+      </details>
+
 5. 集成 [NodeStatus](https://github.com/cokemine/nodestatus) 探针客户端。[NodeStatus 服务端](https://github.com/wy580477/NodeStatus-Docker)也可以部署在 PaaS 平台上。
 
 
@@ -121,7 +130,7 @@
 | :--- | :--- | :--- |
 | `VmessUUID` | `ad2c9acd-3afb-4fae-aff2-954c532020bd` | Vmess 用户 UUID，用于身份验证，务必修改，建议使用UUID生成工具 |
 | `SecretPATH` | `/mypath` | Websocket代理路径前缀，务必修改为不常见字符串 |
-| `PASSWORD` | `password` | Trojan 协议密码，务必修改为强密码 |
+| `PASSWORD` | `password` | Trojan 协议密码，务必修改为强密码。同时也是 Clash api 连接密钥 |
 | `ArgoDOMAIN` |  | 可选，Cloudflared 隧道域名，保持默认空值为禁用 Cloudflared 隧道 |
 | `ArgoJSON` |  | 可选，Cloudflared 隧道 JSON 文件 |
 | `WG_PRIVATE_KEY` |  | 可选，WARP 配置文件中 PrivateKey 值。保持默认空值为禁用 WARP 出站 |
@@ -157,6 +166,7 @@
         "earlyDataHeadName": "Sec-WebSocket-Protocol"
     }
     ```
+ 6. [yacd 面板](http://yacd.haishan.me) 连接 URL 为 https://<域名><SecretPATH 变量>/api，Secret 密钥为 PASSWORD 变量值。
 
  <details>
 <summary>Vmess WS 配置示例</summary>
@@ -187,7 +197,7 @@
 ### Cloudflared 隧道配置方式
 
  1. 前提在 Cloudflare 上有一个托管的域名，以example.com为例。以下为 Windows 系统命令举例。
- 2. 下载 [Cloudflared](https://github.com/cloudflare/cloudflared/releases)
+ 2. 下载  [Cloudflared](https://github.com/cloudflare/cloudflared/releases)
     ```
     wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-windows-amd64.exe
     ```
