@@ -2,8 +2,7 @@
 
 ## 鸣谢
 
-- [Project X](https://github.com/XTLS/Xray-core)
-- [v2ray-heroku](https://github.com/bclswl0827/v2ray-heroku)
+- [SagerNet/sing-box](https://github.com/SagerNet/sing-box)
 - [v2argo](https://github.com/funnymdzz/v2argo)
 
 ## 概述
@@ -12,19 +11,19 @@
 
 2. 可以启用 Cloudflared 隧道，以内网穿透模式接入 Cloudflare，可以使用 Cloudflare 支持的全部十多个端口。
 
-3. 支持直接访问.onion tor 网络域名（需要客户端使用 socks/http 代理方式或者 Fakeip/Fakedns 透明代理环境）。
+3. 支持 WARP 出站 (需要已有的 WARP 配置文件）。
 
-4. 集成 [NodeStatus](https://github.com/cokemine/nodestatus) 探针客户端。[NodeStatus 服务端](https://github.com/wy580477/NodeStatus-Docker)也可以部署在 PaaS 平台上。
+3. 支持直接访问 .onion tor 网络域名（需要客户端使用 socks/http 代理方式或者 Fakeip/Fakedns 透明代理环境）。
 
-5. 支持 WS-0RTT 降低延迟，Xray 核心客户端在 Websocket 路径后加上 ?ed=2048 即可启用。
+4. 支持 WS-0RTT 降低延迟，Xray 核心客户端在 Websocket 路径后加上 ?ed=2048 即可启用。
 
-6. 部署完成后，每次容器启动时，Xray 和 Loyalsoldier 路由规则文件将始终为最新版本。
+5. 集成 [NodeStatus](https://github.com/cokemine/nodestatus) 探针客户端。[NodeStatus 服务端](https://github.com/wy580477/NodeStatus-Docker)也可以部署在 PaaS 平台上。
+
 
 ## 注意
 
  **请勿滥用，PaaS 平台账号封禁风险自负**
- 
- 目前已知会触发风控的 PaaS 平台：Railway，Okteto，Clever Cloud，Fly.io
+
 
 [部署方式](#部署方式)
 
@@ -78,7 +77,7 @@
  <details>
 <summary><b>Patr 部署方法</b></summary>
 
-**1/23 更新：Patr 故障中，如要部署，请自行搜索构建镜像推送到 Docker Hub 的教程，在 codespace 中操作即可。**
+**2/4 更新：Patr 故障中。无法部署。**
  
  1. 点击本项目网页上部 Code 按钮，再点击 Create codespace on main。
  
@@ -125,6 +124,8 @@
 | `PASSWORD` | `password` | Trojan 协议密码，务必修改为强密码 |
 | `ArgoDOMAIN` |  | 可选，Cloudflared 隧道域名，保持默认空值为禁用 Cloudflared 隧道 |
 | `ArgoJSON` |  | 可选，Cloudflared 隧道 JSON 文件 |
+| `WG_PRIVATE_KEY` |  | 可选，WARP 配置文件中 PrivateKey 值。保持默认空值为禁用 WARP 出站 |
+| `WG_PEER_PUBLIC_KEY` |  | 可选，WARP 配置文件中 Peer PublicKey 值 |
 | `NodeStatus_DSN` |  | 可选，NodeStatus 探针服务端连接信息，保持默认空值为禁用。示例：wss://username:password@status.mydomain.com |
 
 ## 客户端相关设置
@@ -138,13 +139,16 @@
     ```
     # Vmess
     ${SecretPATH}/vm
+    # Vmess + WARP 出站
+    ${SecretPATH}/wgvm
     # Trojan
     ${SecretPATH}/tr
+    # Trojan + WARP 出站
+    ${SecretPATH}/wgtr
     ```
     为了减少特征，浏览器直接访问Websocket路径，会返回401而不是bad request。
  4. 使用IP地址连接时，无tls加密配置，需要在 host 项指定域名，tls加密配置，需要在sni（serverName）项中指定域名。
- 5. Vmess 协议全程加密，安全性更高。Trojan 协议自身无加密，依赖外层tls加密, 数据传输路径中如果 tls 被解密，原始传输数据有可能被获取。
- 6. Xray 核心的客户端直接在路径后面加 ?ed=2048 即可启用 WS-0RTT，v2fly 核心需要在配置文件中添加如下配置：
+ 5. Xray 核心的客户端直接在路径后面加 ?ed=2048 即可启用 WS-0RTT，v2fly 核心需要在配置文件中添加如下配置：
 
     ```
     "wsSettings": {
@@ -177,16 +181,28 @@
 
 ### Cloudflare Workers反代
 
-- [设置Cloudflare Workers服务](https://github.com/wy580477/PaaS-Related/blob/main/CF_Workers_Reverse_Proxy_chs.md)
+- [设置Cloudflare Workers服务](https://github.com/wy580477/PaaS-Related/blob/main/CF_Workers_Reverse_Proxy_chs_simple.md)
 - 代理服务器地址/host域名/sni（serverName）填写上面创建的Workers service域名。
 
 ### Cloudflared 隧道配置方式
 
- 1. 前提在 Cloudflare 上有一个托管的域名，以example.com为例
+ 1. 前提在 Cloudflare 上有一个托管的域名，以example.com为例。以下为 Windows 系统命令举例。
  2. 下载 [Cloudflared](https://github.com/cloudflare/cloudflared/releases)
+    ```
+    wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-windows-amd64.exe
+    ```
  3. 运行 cloudflared login，此步让你绑定域名。
+    ```
+    .\cloudflared-windows-amd64.exe login
+    ``` 
  4. 运行 cloudflared tunnel create 隧道名，此步会生成隧道 JSON 配置文件。
+    ```
+    .\cloudflared-windows-amd64.exe tunnel create mytunnel
+    ``` 
  5. 运行 cloudflared tunnel route dns 隧道名 argo.example.com, 生成cname记录，可以随意指定二级域名。
+    ```
+    .\cloudflared-windows-amd64.exe tunnel route dns mytunnel mytunnel.example.com
+    ```  
  6. 重复运行上面两步，可配置多个隧道。
  7. 部署时将 JSON 隧道配置文件内容、域名填入对应变量。
  8. 如果 PaaS 平台有容器空闲休眠的限制，无法通过 Cloudflared 隧道唤醒容器，保持长期运行建议使用 uptimerobot 之类网站监测服务定时 http ping PaaS 平台所提供的域名地址。
