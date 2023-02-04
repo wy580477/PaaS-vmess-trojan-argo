@@ -1,14 +1,14 @@
-FROM alpine:latest
+FROM alpine
 
 COPY ./content /workdir/
 
-RUN apk add --no-cache curl runit caddy jq tor wget bash \
-    && chmod +x /workdir/service/*/run /workdir/*.sh \
-    && /workdir/install.sh \
+RUN apk add --no-cache curl runit caddy jq bash tor \
+    && chmod +x /workdir/service/*/run \
+    && sh /workdir/install.sh \
+    && rm /workdir/install.sh \
     && ln -s /workdir/service/* /etc/service/
 
 ENV PORT=3000
-ENV VmessUUID=ad2c9acd-3afb-4fae-aff2-954c532020bd
 ENV SecretPATH=/mypath
 ENV PASSWORD=password
 

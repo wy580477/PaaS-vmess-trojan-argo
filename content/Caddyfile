@@ -6,7 +6,20 @@
 		}
 		handle @websocket {
 			reverse_proxy @websocket {
-				to unix//run/@vmess.sock
+				to localhost:61800
+				trusted_proxies private_ranges
+			}
+		}
+		respond * 401
+	}
+	handle {$SecretPATH}/wgvm* {
+		@websocket-wgvm {
+			header Connection *Upgrade*
+			header Upgrade websocket
+		}
+		handle @websocket-wgvm {
+			reverse_proxy @websocket-wgvm {
+				to localhost:61802
 				trusted_proxies private_ranges
 			}
 		}
@@ -23,10 +36,35 @@
 		}
 		handle @websocket-tr {
 			reverse_proxy @websocket-tr {
-				to unix//run/@trojan.sock
+				to localhost:61801
 				trusted_proxies private_ranges
 			}
 		}
 		respond * 401
+	}
+	handle {$SecretPATH}/wgtr* {
+		@http-req {
+			header X-Forwarded-Proto http
+		}
+		redir @http-req https://{host}{uri}
+		@websocket-wgtr {
+			header Connection *Upgrade*
+			header Upgrade websocket
+		}
+		handle @websocket-wgtr {
+			reverse_proxy @websocket-wgtr {
+				to localhost:61803
+				trusted_proxies private_ranges
+			}
+		}
+		respond * 401
+	}
+	handle {$SecretPATH}/api* {
+		@http-req {
+			header X-Forwarded-Proto http
+		}
+		redir @http-req https://{host}{uri}
+		uri strip_prefix {$SecretPATH}/api
+		reverse_proxy * localhost:61804
 	}
 }

@@ -1,0 +1,78 @@
+{
+  "log": {
+    "level": "info"
+  },
+  "dns": {
+    "servers": [
+      {
+        "address": "tls://8.8.8.8",
+        "detour": "direct"
+      }
+    ],
+    "strategy": "prefer_ipv4",
+    "disable_cache": false
+  },
+  "inbounds": [
+    {
+      "type": "vmess",
+      "listen": "::",
+      "listen_port": 61800,
+      "sniff": true,
+      "sniff_override_destination": true,
+      "users": [
+        {
+          "uuid": "VmessUUID",
+          "alterId": 0
+        }
+      ],
+      "transport": {
+        "type": "ws",
+        "path": "SecretPATH/vm",
+        "max_early_data": 2048,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    },
+    {
+      "type": "trojan",
+      "listen": "::",
+      "listen_port": 61801,
+      "sniff": true,
+      "sniff_override_destination": true,
+      "users": [{ "password": "PASSWORD" }],
+      "transport": {
+        "type": "ws",
+        "path": "SecretPATH/tr",
+        "max_early_data": 2048,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct",
+      "domain_strategy": "prefer_ipv4"
+    },
+    {
+      "type": "socks",
+      "tag": "tor",
+      "server": "127.0.0.1",
+      "server_port": 9050
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "domain_suffix": [".onion"],
+        "outbound": "tor"
+      }
+    ]
+  },
+  "experimental": {
+    "clash_api": {
+      "external_controller": "127.0.0.1:61804",
+      "secret": "PASSWORD",
+      "default_mode": "rule"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-EXEC=$(echo $RANDOM | md5sum | head -c 4; echo)
+EXEC=$(echo $RANDOM | md5sum | head -c 4)
 ln -sf /usr/bin/tor /workdir/2${EXEC}
 
 exec 2>&1

@@ -24,6 +24,21 @@
             "description": "Argo tunnel Domain. Optional, if you don't want to use Argo tunnel, you can ignore this.",
             "required": false,
             "value": ""
+        },
+        "WG_PRIVATE_KEY": {
+            "description": "Wireguard private key. Optional.",
+            "required": false,
+            "value": ""
+        },
+        "WG_PEER_PUBLIC_KEY": {
+            "description": "Wireguard peer public key. Optional.",
+            "required": false,
+            "value": ""
+        },
+        "NodeStatus_DSN": {
+            "description": "NodeStatus server address. Optional. Example: wss://username:password@status.mydomain.com",
+            "required": false,
+            "value": ""
         }
     },
     "stack": "container"

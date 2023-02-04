@@ -1,0 +1,126 @@
+{
+  "log": {
+    "level": "info"
+  },
+  "dns": {
+    "servers": [
+      {
+        "address": "tls://8.8.8.8",
+        "detour": "direct"
+      }
+    ],
+    "strategy": "prefer_ipv4",
+    "disable_cache": false
+  },
+  "inbounds": [
+    {
+      "type": "vmess",
+      "listen": "::",
+      "listen_port": 61800,
+      "sniff": true,
+      "sniff_override_destination": true,
+      "users": [
+        {
+          "uuid": "ad2c9acd-3afb-4fae-aff2-954c532020bd",
+          "alterId": 0
+        }
+      ],
+      "transport": {
+        "type": "ws",
+        "path": "SecretPATH/vm",
+        "max_early_data": 2048,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    },
+    {
+      "type": "trojan",
+      "listen": "::",
+      "listen_port": 61801,
+      "sniff": true,
+      "sniff_override_destination": true,
+      "users": [{ "password": "PASSWORD" }],
+      "transport": {
+        "type": "ws",
+        "path": "SecretPATH/tr",
+        "max_early_data": 2048,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    },
+    {
+      "type": "vmess",
+      "tag": "vmess-wg",
+      "listen": "::",
+      "listen_port": 61802,
+      "sniff": true,
+      "sniff_override_destination": true,
+      "users": [
+        {
+          "uuid": "ad2c9acd-3afb-4fae-aff2-954c532020bd",
+          "alterId": 0
+        }
+      ],
+      "transport": {
+        "type": "ws",
+        "path": "SecretPATH/wgvm",
+        "max_early_data": 2048,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "trojan-wg",
+      "listen": "::",
+      "listen_port": 61803,
+      "sniff": true,
+      "sniff_override_destination": true,
+      "users": [{ "password": "PASSWORD" }],
+      "transport": {
+        "type": "ws",
+        "path": "SecretPATH/wgtr",
+        "max_early_data": 2048,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct",
+      "domain_strategy": "prefer_ipv4"
+    },
+    {
+      "type": "wireguard",
+      "tag": "wireguard",
+      "server": "engage.cloudflareclient.com",
+      "server_port": 2408,
+      "local_address": ["10.0.0.2/32"],
+      "private_key": "WG_PRIVATE_KEY",
+      "peer_public_key": "WG_PEER_PUBLIC_KEY"
+    },
+    {
+      "type": "socks",
+      "tag": "tor",
+      "server": "127.0.0.1",
+      "server_port": 9050
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "domain_suffix": [".onion"],
+        "outbound": "tor"
+      },
+      {
+        "inbound": ["vmess-wg", "trojan-wg"],
+        "outbound": "wireguard"
+      }
+    ]
+  },
+  "experimental": {
+    "clash_api": {
+      "external_controller": "127.0.0.1:61804",
+      "secret": "PASSWORD",
+      "default_mode": "rule"
+    }
+  }
+}

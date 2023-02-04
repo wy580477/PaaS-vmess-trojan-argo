@@ -1,13 +1,15 @@
 #!/bin/sh
 
-# Update Ray
-/workdir/install.sh
-
-EXEC=$(echo $RANDOM | md5sum | head -c 6; echo)
-ln -sf /usr/bin/ray /workdir/${EXEC}
-
-# Run Ray
-sed -i "s|VmessUUID|${VmessUUID}|g;s|PASSWORD|${PASSWORD}|g;s|SecretPATH|${SecretPATH}|g" /workdir/ray.yaml
-ln -s /workdir/ray.yaml /tmp/${EXEC}.yaml
 exec 2>&1
-exec /workdir/${EXEC} -config=/tmp/${EXEC}.yaml
+
+if [ "${WG_PRIVATE_KEY}" != "" ]; then
+    cp -f /workdir/config-wg.json /tmp/config.json
+    sed -i "s|ad2c9acd-3afb-4fae-aff2-954c532020bd|${VmessUUID}|g;s|PASSWORD|${PASSWORD}|g;s|SecretPATH|${SecretPATH}|g;s|WG_PRIVATE_KEY|${WG_PRIVATE_KEY}|g;s|WG_PEER_PUBLIC_KEY|${WG_PEER_PUBLIC_KEY}|g" /tmp/config.json
+else
+    cp -f /workdir/config.json /tmp/config.json
+    sed -i "s|VmessUUID|${VmessUUID}|g;s|PASSWORD|${PASSWORD}|g;s|SecretPATH|${SecretPATH}|g" /tmp/config.json
+fi
+
+cd /usr/bin
+
+exec ./app* run -c /tmp/config.json
