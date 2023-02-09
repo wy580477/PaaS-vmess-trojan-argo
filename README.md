@@ -87,8 +87,6 @@
 
  <details>
 <summary><b>Patr 部署方法</b></summary>
-
-**2/4 更新：Patr 故障中。无法部署。**
  
  1. 点击本项目网页上部 Code 按钮，再点击 Create codespace on main。
  
