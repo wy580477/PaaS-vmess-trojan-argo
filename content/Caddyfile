@@ -10,7 +10,6 @@
 				trusted_proxies private_ranges
 			}
 		}
-		respond * 401
 	}
 	handle {$SecretPATH}/wgvm* {
 		@websocket-wgvm {
@@ -23,7 +22,6 @@
 				trusted_proxies private_ranges
 			}
 		}
-		respond * 401
 	}
 	handle {$SecretPATH}/tr* {
 		@http-req {
