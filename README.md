@@ -131,8 +131,7 @@
 | `VmessUUID` | `ad2c9acd-3afb-4fae-aff2-954c532020bd` | Vmess 用户 UUID，用于身份验证，务必修改，建议使用UUID生成工具 |
 | `SecretPATH` | `/mypath` | Websocket代理路径前缀，务必修改为不常见字符串 |
 | `PASSWORD` | `password` | Trojan 协议密码，务必修改为强密码。同时也是 Clash api 连接密钥 |
-| `ArgoDOMAIN` |  | 可选，Cloudflared 隧道域名，保持默认空值为禁用 Cloudflared 隧道 |
-| `ArgoJSON` |  | 可选，Cloudflared 隧道 JSON 文件 |
+| `ArgoJSON` |  | 可选，Cloudflared 隧道 JSON 文件，保持默认空值为禁用 Cloudflared 隧道 |
 | `WG_PRIVATE_KEY` |  | 可选，WARP 配置文件中 PrivateKey 值。保持默认空值为禁用 WARP 出站 |
 | `WG_PEER_PUBLIC_KEY` |  | 可选，WARP 配置文件中 Peer PublicKey 值 |
 | `NodeStatus_DSN` |  | 可选，NodeStatus 探针服务端连接信息，保持默认空值为禁用。示例：wss://username:password@status.mydomain.com |
@@ -214,5 +213,5 @@
     .\cloudflared-windows-amd64.exe tunnel route dns mytunnel mytunnel.example.com
     ```  
  6. 重复运行上面两步，可配置多个隧道。
- 7. 部署时将 JSON 隧道配置文件内容、域名填入对应变量。
+ 7. 部署时将 JSON 隧道配置文件内容填入 ArgoJSON 变量。
  8. 如果 PaaS 平台有容器空闲休眠的限制，无法通过 Cloudflared 隧道唤醒容器，保持长期运行建议使用 uptimerobot 之类网站监测服务定时 http ping PaaS 平台所提供的域名地址。
