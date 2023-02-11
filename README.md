@@ -208,7 +208,7 @@
     ```
     .\cloudflared-windows-amd64.exe tunnel create mytunnel
     ``` 
- 5. 运行 cloudflared tunnel route dns 隧道名 argo.example.com, 生成cname记录，可以随意指定二级域名。
+ 5. 运行 cloudflared tunnel route dns 隧道名 argo.example.com, 生成cname记录，可以随意指定三级域名。
     ```
     .\cloudflared-windows-amd64.exe tunnel route dns mytunnel mytunnel.example.com
     ```  
