@@ -55,7 +55,7 @@
  3. 然后点击Code返回之前的页面，点Setting下面新出现的按钮Use this template，起个随机名字创建新库。
  4. 项目名称注意不要包含 `v2ray` 和 `xray` 等关键字。
  5. 在 PaaS 平台管理面板中连接你新建立的 github 仓库。
- 6. 按下文变量部分设置所需的变量，如果需要设置内部 HTTP 端口，默认为3000，也可以自行设置 PORT 变量修改。
+ 6. 按下文变量部分设置所需的变量，如果需要设置内部 HTTP 端口（在 Render 上部署时必须设置 PORT 变量），默认为3000，也可以自行设置 PORT 变量修改。
  7. 然后部署即可。
 
 </details>
@@ -78,7 +78,7 @@
  <details>
 <summary><b>Patr 部署方法</b></summary>
 
-**1/23 更新：Patr 故障中，如要部署，请自行搜索构建镜像推送到 Docker Hub 的教程，在 codespace 中操作即可。**
+**Patr 故障中。**
  
  1. 点击本项目网页上部 Code 按钮，再点击 Create codespace on main。
  
@@ -123,8 +123,7 @@
 | `VmessUUID` | `ad2c9acd-3afb-4fae-aff2-954c532020bd` | Vmess 用户 UUID，用于身份验证，务必修改，建议使用UUID生成工具 |
 | `SecretPATH` | `/mypath` | Websocket代理路径前缀，务必修改为不常见字符串 |
 | `PASSWORD` | `password` | Trojan 协议密码，务必修改为强密码 |
-| `ArgoDOMAIN` |  | 可选，Cloudflared 隧道域名，保持默认空值为禁用 Cloudflared 隧道 |
-| `ArgoJSON` |  | 可选，Cloudflared 隧道 JSON 文件 |
+| `ArgoJSON` |  | 可选，Cloudflared 隧道 JSON 文件，保持默认空值为禁用 Cloudflared 隧道 |
 | `NodeStatus_DSN` |  | 可选，NodeStatus 探针服务端连接信息，保持默认空值为禁用。示例：wss://username:password@status.mydomain.com |
 
 ## 客户端相关设置
@@ -186,7 +185,7 @@
  2. 下载 [Cloudflared](https://github.com/cloudflare/cloudflared/releases)
  3. 运行 cloudflared login，此步让你绑定域名。
  4. 运行 cloudflared tunnel create 隧道名，此步会生成隧道 JSON 配置文件。
- 5. 运行 cloudflared tunnel route dns 隧道名 argo.example.com, 生成cname记录，可以随意指定二级域名。
+ 5. 运行 cloudflared tunnel route dns 隧道名 argo.example.com, 生成cname记录，可以随意指定三级域名。
  6. 重复运行上面两步，可配置多个隧道。
- 7. 部署时将 JSON 隧道配置文件内容、域名填入对应变量。
+ 7. 部署时将 JSON 隧道配置文件内容填入 ArgoJSON 变量。
  8. 如果 PaaS 平台有容器空闲休眠的限制，无法通过 Cloudflared 隧道唤醒容器，保持长期运行建议使用 uptimerobot 之类网站监测服务定时 http ping PaaS 平台所提供的域名地址。
