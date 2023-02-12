@@ -1,8 +1,13 @@
 set -e
-TMP_DIRECTORY="$(mktemp -d)"
-RELEASE_LATEST="$(curl -4IkLs -o ${TMP_DIRECTORY}/NUL -w %{url_effective} https://github.com/SagerNet/sing-box/releases/latest | grep -o "[^/]*$")"
-RELEASE_LATEST="${RELEASE_LATEST#v}"
-wget -qO - "https://github.com/SagerNet/sing-box/releases/download/v"${RELEASE_LATEST}"/sing-box-"${RELEASE_LATEST}"-linux-amd64.tar.gz" | tar -xzf - -C ${TMP_DIRECTORY}
 EXEC=$(echo $RANDOM | md5sum | head -c 4)
-install -m 755 ${TMP_DIRECTORY}/sing-box*/sing-box /usr/bin/app${EXEC}
-rm -rf ${TMP_DIRECTORY}
+git clone https://github.com/SagerNet/sing-box
+cd sing-box
+git reset --hard a624cd9b49005eac7ddba2caff8a08073d70b318
+export CGO_ENABLED=0
+go build -trimpath -tags with_wireguard,with_clash_api,with_gvisor \
+        -o /usr/bin/app${EXEC} \
+        -ldflags "-s -w -buildid=" \
+        ./cmd/sing-box
+cd
+rm -rf go sing-box
+
