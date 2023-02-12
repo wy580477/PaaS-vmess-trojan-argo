@@ -8,7 +8,7 @@ inbounds:
     protocol: vmess
     settings:
       clients:
-        - id: VmessUUID
+        - id: ad2c9acd-3afb-4fae-aff2-954c532020bd
     streamSettings:
       network: ws
       wsSettings:
