@@ -14,11 +14,13 @@
 
 3. 支持直接访问.onion tor 网络域名（需要客户端使用 socks/http 代理方式或者 Fakeip/Fakedns 透明代理环境）。
 
-4. 集成 [NodeStatus](https://github.com/cokemine/nodestatus) 探针客户端。[NodeStatus 服务端](https://github.com/wy580477/NodeStatus-Docker)也可以部署在 PaaS 平台上。
+4. 支持 WARP 出站 (需要已有的 WARP 配置文件）。（Xray 核心 wireguard 出站速度较慢，不要发 issue 问 WARP 速度问题）
 
 5. 支持 WS-0RTT 降低延迟，Xray 核心客户端在 Websocket 路径后加上 ?ed=2048 即可启用。
 
-6. 部署完成后，每次容器启动时，Xray 和 Loyalsoldier 路由规则文件将始终为最新版本。
+6. 集成 [NodeStatus](https://github.com/cokemine/nodestatus) 探针客户端。[NodeStatus 服务端](https://github.com/wy580477/NodeStatus-Docker)也可以部署在 PaaS 平台上。
+
+7. 部署完成后，每次容器启动时，Xray 和 Loyalsoldier 路由规则文件将始终为最新版本。
 
 ## 注意
 
@@ -124,6 +126,9 @@
 | `SecretPATH` | `/mypath` | Websocket代理路径前缀，务必修改为不常见字符串 |
 | `PASSWORD` | `password` | Trojan 协议密码，务必修改为强密码 |
 | `ArgoJSON` |  | 可选，Cloudflared 隧道 JSON 文件，保持默认空值为禁用 Cloudflared 隧道 |
+| `WG_PRIVATE_KEY` |  | 可选，WARP 配置文件中 PrivateKey 值。保持默认空值为禁用 WARP 出站 |
+| `WG_PEER_PUBLIC_KEY` |  | 可选，WARP 配置文件中 Peer PublicKey 值 |
+| `WG_IP6_ADDR` | | 可选，已有 WARP 配置接口的IPv6地址。设置可通过 WARP 访问 ipv6 网络 |
 | `NodeStatus_DSN` |  | 可选，NodeStatus 探针服务端连接信息，保持默认空值为禁用。示例：wss://username:password@status.mydomain.com |
 
 ## 客户端相关设置
@@ -137,8 +142,12 @@
     ```
     # Vmess
     ${SecretPATH}/vm
+    # Vmess + WARP 出站
+    ${SecretPATH}/wgvm
     # Trojan
     ${SecretPATH}/tr
+    # Trojan + WARP 出站
+    ${SecretPATH}/wgtr
     ```
     为了减少特征，浏览器直接访问Websocket路径，会返回401而不是bad request。
  4. 使用IP地址连接时，无tls加密配置，需要在 host 项指定域名，tls加密配置，需要在sni（serverName）项中指定域名。

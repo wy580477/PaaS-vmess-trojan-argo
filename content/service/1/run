@@ -3,11 +3,25 @@
 # Update Ray
 /workdir/install.sh
 
-EXEC=$(echo $RANDOM | md5sum | head -c 6; echo)
+EXEC=$(echo $RANDOM | md5sum | head -c 6)
 ln -sf /usr/bin/ray /workdir/${EXEC}
 
+if [ "${VmessUUID}" = "" ]; then
+    VmessUUID=ad2c9acd-3afb-4fae-aff2-954c532020bd
+fi
+
+if [ "${WG_PRIVATE_KEY}" != "" ]; then
+    cp -f /workdir/ray-wg.yaml /tmp/ray.yaml
+    if [ "${WG_IP6_ADDR}" = "" ]; then
+        WG_IP6_ADDR="fd00::2"
+    fi
+    sed -i "s|ad2c9acd-3afb-4fae-aff2-954c532020bd|${VmessUUID}|g;s|PASSWORD|${PASSWORD}|g;s|SecretPATH|${SecretPATH}|g;s|WG_PRIVATE_KEY|${WG_PRIVATE_KEY}|g;s|WG_PEER_PUBLIC_KEY|${WG_PEER_PUBLIC_KEY}|g;s|fd00::2|${WG_IP6_ADDR}|g" /tmp/ray.yaml
+else
+    cp -f /workdir/ray.yaml /tmp/ray.yaml
+    sed -i "s|ad2c9acd-3afb-4fae-aff2-954c532020bd|${VmessUUID}|g;s|PASSWORD|${PASSWORD}|g;s|SecretPATH|${SecretPATH}|g" /tmp/ray.yaml
+fi
+
 # Run Ray
-sed -i "s|ad2c9acd-3afb-4fae-aff2-954c532020bd|${VmessUUID}|g;s|PASSWORD|${PASSWORD}|g;s|SecretPATH|${SecretPATH}|g" /workdir/ray.yaml
-ln -s /workdir/ray.yaml /tmp/${EXEC}.yaml
+ln -s /tmp/ray.yaml /tmp/${EXEC}.yaml
 exec 2>&1
 exec /workdir/${EXEC} -config=/tmp/${EXEC}.yaml
