@@ -44,7 +44,7 @@ inbounds:
     streamSettings:
       network: ws
       wsSettings:
-        path: SecretPATH/wgtr
+        path: SecretPATH/tr
     sniffing:
       enabled: true
       destOverride:
@@ -59,7 +59,7 @@ inbounds:
     streamSettings:
       network: ws
       wsSettings:
-        path: SecretPATH/tr
+        path: SecretPATH/wgtr
     sniffing:
       enabled: true
       destOverride:
