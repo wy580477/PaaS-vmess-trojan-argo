@@ -45,16 +45,6 @@ outbounds:
       servers:
         - address: 127.0.0.1
           port: 9050
-  - protocal: wireguard
-    tag: wireguard
-    settings:
-      secretKey: "PRIVATE_KEY"
-      address:
-        - "10.0.0.1"
-        - "fd00::1"
-      peers:
-        - publicKey: "PUBLIC_KEY"
-          endpoint: "engage.cloudflareclient.com:2408"
 routing:
   domainStrategy: AsIs
   domainMatcher: mph
