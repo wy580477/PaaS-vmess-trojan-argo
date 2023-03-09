@@ -9,7 +9,7 @@
 
 1. 本项目用于在 PaaS 平台上部署 Vmess WebSocket 和 Trojan Websocket 协议，支持 CI/CD 和拉取容器镜像两种部署方式。
 
-   已更换为 sing-box 核心，如需部署原 Xray 核心版本，请前往 [archieve 分支](https://github.com/wy580477/PaaS-vmess-trojan-argo/tree/archieve)。
+   已更换为 sing-box 核心，如需部署原 Xray 核心版本，请前往 [archieve 分支](https://github.com/wy580477/PaaS-vmess-trojan-argo/tree/achieve)。
 
 2. 可以启用 Cloudflared 隧道，以内网穿透模式接入 Cloudflare，可以使用 Cloudflare 支持的全部十多个端口。
 
