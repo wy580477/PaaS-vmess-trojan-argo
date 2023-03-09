@@ -5,7 +5,7 @@
   "dns": {
     "servers": [
       {
-        "address": "tls://8.8.8.8",
+        "address": "tls://1.1.1.1",
         "detour": "direct"
       }
     ],
@@ -54,10 +54,9 @@
       "domain_strategy": "prefer_ipv4"
     },
     {
-      "type": "socks",
+      "type": "tor",
       "tag": "tor",
-      "server": "127.0.0.1",
-      "server_port": 9050
+      "data_directory": "/root/.cache/tor"
     }
   ],
   "route": {

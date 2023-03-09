@@ -13,7 +13,7 @@
 
 2. 可以启用 Cloudflared 隧道，以内网穿透模式接入 Cloudflare，可以使用 Cloudflare 支持的全部十多个端口。
 
-3. 支持 WARP 出站 (需要已有的 WARP 配置文件）。
+3. 支持 WARP 出站（需要已有的 WARP 配置文件）。启用 WARP 出站后，chaigpt、netflix 和 disney 自动分流到 WARP 出站。
 
 3. 支持直接访问 .onion tor 网络域名（需要客户端使用 socks/http 代理方式或者 Fakeip/Fakedns 透明代理环境）。
 
@@ -27,8 +27,6 @@
       ![image](https://user-images.githubusercontent.com/98247050/216765395-ae682987-141a-4041-b8e2-cec800cb0f4a.png)
 
       </details>
-
-5. 集成 [NodeStatus](https://github.com/cokemine/nodestatus) 探针客户端。[NodeStatus 服务端](https://github.com/wy580477/NodeStatus-Docker)也可以部署在 PaaS 平台上。
 
 
 ## 注意

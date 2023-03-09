@@ -5,7 +5,7 @@
   "dns": {
     "servers": [
       {
-        "address": "tls://8.8.8.8",
+        "address": "tls://1.1.1.1",
         "detour": "direct"
       }
     ],
@@ -93,15 +93,14 @@
       "tag": "wireguard",
       "server": "engage.cloudflareclient.com",
       "server_port": 2408,
-      "local_address": ["10.0.0.2/32"],
+      "local_address": ["198.18.0.1/32"],
       "private_key": "WG_PRIVATE_KEY",
       "peer_public_key": "WG_PEER_PUBLIC_KEY"
     },
     {
-      "type": "socks",
+      "type": "tor",
       "tag": "tor",
-      "server": "127.0.0.1",
-      "server_port": 9050
+      "data_directory": "/root/.cache/tor"
     }
   ],
   "route": {
@@ -112,6 +111,11 @@
       },
       {
         "inbound": ["vmess-wg", "trojan-wg"],
+        "outbound": "wireguard"
+      },
+      {
+        "domain_suffix": ["openai.com"],
+        "geosite": ["netflix","disney"],
         "outbound": "wireguard"
       }
     ]

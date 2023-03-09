@@ -1,13 +1,12 @@
-FROM alpine
+FROM debian:bullseye-slim
 
 COPY ./content /workdir/
 
-RUN apk add --no-cache curl runit caddy jq bash tor \
-    && chmod +x /workdir/service/*/run \
-    && apk add --no-cache --virtual .build-deps git go build-base \
+RUN apt-get update \
+    && apt-get install -y ca-certificates runit jq libevent-2.1-7 bash busybox \
     && sh /workdir/install.sh \
-    && rm /workdir/install.sh \
-    && apk del .build-deps \
+    && rm -rf /var/lib/apt/lists/* /workdir/install.sh \
+    && chmod +x /workdir/service/*/run \
     && ln -s /workdir/service/* /etc/service/
 
 ENV PORT=3000
@@ -16,4 +15,4 @@ ENV PASSWORD=password
 
 EXPOSE 3000
 
-ENTRYPOINT ["runsvdir", "-P", "/etc/service"]
+ENTRYPOINT ["runsvdir", "/etc/service"]
