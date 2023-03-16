@@ -1,11 +1,10 @@
-FROM debian:bullseye-slim
+FROM alpine
 
 COPY ./content /workdir/
 
-RUN apt-get update \
-    && apt-get install -y ca-certificates runit jq libevent-2.1-7 bash busybox \
+RUN apk add --no-cache caddy runit jq tor bash \
     && sh /workdir/install.sh \
-    && rm -rf /var/lib/apt/lists/* /workdir/install.sh \
+    && rm /workdir/install.sh \
     && chmod +x /workdir/service/*/run \
     && ln -s /workdir/service/* /etc/service/
 

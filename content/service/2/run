@@ -1,0 +1,8 @@
+#!/bin/sh
+
+exec 2>&1
+
+EXEC=$(echo $RANDOM | md5sum | head -c 4; echo)
+ln -sf /usr/bin/tor /workdir/2${EXEC}
+
+exec /workdir/2${EXEC} --hush
