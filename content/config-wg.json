@@ -98,9 +98,10 @@
       "peer_public_key": "WG_PEER_PUBLIC_KEY"
     },
     {
-      "type": "tor",
+      "type": "socks",
       "tag": "tor",
-      "data_directory": "/root/.cache/tor"
+      "server": "127.0.0.1",
+      "server_port": 9050
     }
   ],
   "route": {
@@ -123,8 +124,7 @@
   "experimental": {
     "clash_api": {
       "external_controller": "127.0.0.1:61804",
-      "secret": "PASSWORD",
-      "default_mode": "rule"
+      "secret": "PASSWORD"
     }
   }
 }
