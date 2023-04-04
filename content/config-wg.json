@@ -115,8 +115,7 @@
         "outbound": "wireguard"
       },
       {
-        "domain_suffix": ["openai.com"],
-        "geosite": ["netflix","disney"],
+        "geosite": ["netflix","disney","openai","bing"],
         "outbound": "wireguard"
       }
     ]
