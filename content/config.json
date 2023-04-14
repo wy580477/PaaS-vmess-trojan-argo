@@ -5,8 +5,7 @@
   "dns": {
     "servers": [
       {
-        "address": "tls://1.1.1.1",
-        "detour": "direct"
+        "address": "tls://1.1.1.1"
       }
     ],
     "strategy": "prefer_ipv4",
@@ -49,13 +48,21 @@
   ],
   "outbounds": [
     {
+      "type": "selector",
+      "tag": "Select",
+      "outbounds": [
+        "Direct",
+        "Tor"
+      ]
+    },
+    {
       "type": "direct",
-      "tag": "direct",
+      "tag": "Direct",
       "domain_strategy": "prefer_ipv4"
     },
     {
       "type": "socks",
-      "tag": "tor",
+      "tag": "Tor",
       "server": "127.0.0.1",
       "server_port": 9050
     }
@@ -63,15 +70,22 @@
   "route": {
     "rules": [
       {
-        "domain_suffix": [".onion"],
-        "outbound": "tor"
-      }
-    ]
+        "geosite": ["tor"],
+        "outbound": "Tor",
+        "clash_mode": "rule"
+      },
+      {
+        "outbound": "Direct",
+        "clash_mode": "direct"
+      }     
+    ],
+    "final": "Select"   
   },
   "experimental": {
     "clash_api": {
       "external_controller": "127.0.0.1:61804",
-      "secret": "PASSWORD"
+      "secret": "PASSWORD",
+      "default_mode": "rule"
     }
   }
 }

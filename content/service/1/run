@@ -14,6 +14,9 @@ else
     sed -i "s|ad2c9acd-3afb-4fae-aff2-954c532020bd|${VmessUUID}|g;s|PASSWORD|${PASSWORD}|g;s|SecretPATH|${SecretPATH}|g" /tmp/config.json
 fi
 
+jq '.experimental.clash_api.default_mode |= "'"${CLASH_MODE}"'"' /tmp/config.json > ./config.json
+mv ./config.json /tmp/config.json
+
 cd /usr/bin
 
 exec ./app* run -c /tmp/config.json

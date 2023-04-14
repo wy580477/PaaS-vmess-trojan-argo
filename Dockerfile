@@ -11,6 +11,7 @@ RUN apk add --no-cache caddy runit jq tor bash \
 ENV PORT=3000
 ENV SecretPATH=/mypath
 ENV PASSWORD=password
+ENV CLASH_MODE=rule
 
 EXPOSE 3000
 
