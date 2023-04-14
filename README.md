@@ -13,18 +13,20 @@
 
 2. 可以启用 Cloudflared 隧道，以内网穿透模式接入 Cloudflare，可以使用 Cloudflare 支持的全部十多个端口。
 
-3. 支持 WARP 出站（需要已有的 WARP 配置文件）。启用 WARP 出站后，chatgpt、bing、netflix 和 disney 自动分流到 WARP 出站。
+3. 支持 WARP 出站（需要已有的 WARP 配置文件）。启用 WARP 出站后，可以通过 CLASH_MODE 变量控制 chatgpt、bing、netflix 和 disney 是否分流到 WARP 出站。
 
 3. 支持直接访问 .onion tor 网络域名（需要客户端使用 socks/http 代理方式或者 Fakeip/Fakedns 透明代理环境）。
 
 4. 支持 WS-0RTT 降低延迟，Xray 核心客户端在 Websocket 路径后加上 ?ed=2048 即可启用。
 
-5. 支持 Clash api，可以连接 [yacd 面板](https://github.com/haishanh/yacd)，查看当前速度、连接、日志等信息。
+5. 支持 Clash api，可以连接 [yacd 面板](https://github.com/haishanh/yacd)，选择 Direct / WARP /Tor 出站，启用/关闭分流功能，查看当前速度、连接、日志等信息。
 
       <details>
       <summary>截图</summary>
 
       ![image](https://user-images.githubusercontent.com/98247050/216765395-ae682987-141a-4041-b8e2-cec800cb0f4a.png)
+      
+      ![image](https://user-images.githubusercontent.com/98247050/232048722-7e0e23e3-367a-495b-a907-419681092d1d.png)
 
       </details>
 
@@ -132,6 +134,7 @@
 | `ArgoJSON` |  | 可选，Cloudflared 隧道 JSON 文件，保持默认空值为禁用 Cloudflared 隧道 |
 | `WG_PRIVATE_KEY` |  | 可选，WARP 配置文件中 PrivateKey 值。保持默认空值为禁用 WARP 出站 |
 | `WG_PEER_PUBLIC_KEY` |  | 可选，WARP 配置文件中 Peer PublicKey 值 |
+| `CLASH_MODE` | `rule` | 可选，默认 "rule" 模式会开启自动分流功能，设置为 "direct" 将禁用分流功能 |
 | `NodeStatus_DSN` |  | 可选，NodeStatus 探针服务端连接信息，保持默认空值为禁用。示例：wss://username:password@status.mydomain.com |
 
 ## 客户端相关设置
@@ -164,6 +167,8 @@
     }
     ```
  6. [yacd 面板](http://yacd.haishan.me) 连接 URL 为 https://<域名><SecretPATH 变量>/api，Secret 密钥为 PASSWORD 变量值。
+ 
+    可以通过代理选项卡中的 Select 代理组，选择指定出站。（容器重启后需要重新选择）
 
  <details>
 <summary>Vmess WS 配置示例</summary>
