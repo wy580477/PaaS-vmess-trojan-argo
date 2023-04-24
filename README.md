@@ -13,7 +13,7 @@
 
 2. 可以启用 Cloudflared 隧道，以内网穿透模式接入 Cloudflare，可以使用 Cloudflare 支持的全部十多个端口。
 
-3. 支持 WARP 出站（需要已有的 WARP 配置文件）。启用 WARP 出站后，可以通过 CLASH_MODE 变量控制 chatgpt、bing、netflix 和 disney 是否分流到 WARP 出站。
+3. 支持 WARP 出站（需要已有的 WARP 配置文件）。启用 WARP 出站后，可以通过 CLASH_MODE 变量控制 chatgpt、bing、netflix、imgur 和 disney 是否分流到 WARP 出站。
 
 3. 支持直接访问 .onion tor 网络域名（需要客户端使用 socks/http 代理方式或者 Fakeip/Fakedns 透明代理环境）。
 

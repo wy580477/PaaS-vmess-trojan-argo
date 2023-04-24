@@ -125,7 +125,7 @@
         "clash_mode": "rule"
       },
       {
-        "geosite": ["netflix","disney","openai","bing"],
+        "geosite": ["netflix","disney","openai","bing","imgur"],
         "outbound": "WARP",
         "clash_mode": "rule"
       },
