@@ -1,4 +1,5 @@
-## Heroku 已于2022年11月末关闭免费服务
+## 2023.4.25 重要修复：因为 cloudflared 下载链接变化，导致之前部署的 cloudflared 隧道无法使用，请重新部署。
+
 
 ## 鸣谢
 
@@ -48,6 +49,8 @@
 
  <details>
 <summary><b>Heroku 部署方法</b></summary>
+
+**Heroku 已于2022年11月末关闭免费服务**
 
  1. 点击本仓库右上角Fork，再点击Create Fork。   
  2. 在Fork出来的仓库页面上点击Setting，勾选Template repository。   
