@@ -1,6 +1,3 @@
-## 2023.4.25 重要修复：因为 cloudflared 下载链接变化，导致之前部署的 cloudflared 隧道无法使用，请重新部署。
-
-
 ## 鸣谢
 
 - [SagerNet/sing-box](https://github.com/SagerNet/sing-box)
