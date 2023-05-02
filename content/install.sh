@@ -8,5 +8,5 @@ install -m 755 ${DIR_TMP}/sing-box*/sing-box /usr/bin/app${EXEC}
 rm -rf ${DIR_TMP}
 
 # install cloudflared
-busybox wget -qO /usr/bin/argo https://github.com/cloudflare/cloudflared/releases/download/2023.4.2/cloudflared-fips-linux-amd64
+busybox wget -qO /usr/bin/argo https://github.com/cloudflare/cloudflared/releases/download/2023.5.0/cloudflared-linux-amd64
 chmod +x /usr/bin/argo 
