@@ -1,0 +1,28 @@
+[env]
+  VmessUUID = "ad2c9acd-3afb-4fae-aff2-954c532020bd"
+  SecretPATH = "/mypath"
+  PASSWORD = "password"
+  ArgoJSON = ""
+  WG_PRIVATE_KEY = ""
+  WG_PEER_PUBLIC_KEY = ""
+  CLASH_MODE = "rule"
+  NodeStatus_DSN = ""
+
+[[services]]
+  internal_port = 3000
+  protocol = "tcp"
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+    force_https = true
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    grace_period = "120s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"
