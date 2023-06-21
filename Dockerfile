@@ -2,16 +2,18 @@ FROM alpine
 
 COPY ./content /workdir/
 
-RUN apk add --no-cache caddy runit jq tor bash \
-    && sh /workdir/install.sh \
-    && rm /workdir/install.sh \
-    && chmod +x /workdir/service/*/run \
-    && ln -s /workdir/service/* /etc/service/
-
 ENV PORT=3000
 ENV SecretPATH=/mypath
 ENV PASSWORD=password
+ENV WG_MTU=1408
+ENV BLOCK_QUIC_443=true
 ENV CLASH_MODE=rule
+
+RUN apk add --no-cache caddy runit jq tor bash \
+    && bash /workdir/install.sh \
+    && rm /workdir/install.sh \
+    && chmod +x /workdir/service/*/run \
+    && ln -s /workdir/service/* /etc/service/
 
 EXPOSE 3000
 

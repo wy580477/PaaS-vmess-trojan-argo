@@ -6,16 +6,20 @@ if [ "${VmessUUID}" = "" ]; then
     VmessUUID=ad2c9acd-3afb-4fae-aff2-954c532020bd
 fi
 
-if [ "${WG_PRIVATE_KEY}" != "" ]; then
-    cp -f /workdir/config-wg.json /tmp/config.json
-    sed -i "s|ad2c9acd-3afb-4fae-aff2-954c532020bd|${VmessUUID}|g;s|PASSWORD|${PASSWORD}|g;s|SecretPATH|${SecretPATH}|g;s|WG_PRIVATE_KEY|${WG_PRIVATE_KEY}|g;s|WG_PEER_PUBLIC_KEY|${WG_PEER_PUBLIC_KEY}|g" /tmp/config.json
-else
-    cp -f /workdir/config.json /tmp/config.json
-    sed -i "s|ad2c9acd-3afb-4fae-aff2-954c532020bd|${VmessUUID}|g;s|PASSWORD|${PASSWORD}|g;s|SecretPATH|${SecretPATH}|g" /tmp/config.json
+cp -f /workdir/config-wg.json /tmp/config.json
+sed -i "s|ad2c9acd-3afb-4fae-aff2-954c532020bd|${VmessUUID}|g;s|PASSWORD|${PASSWORD}|g;s|SecretPATH|${SecretPATH}|g" /tmp/config.json
+
+jq '.experimental.clash_api.default_mode |= "'"${CLASH_MODE}"'"' /tmp/config.json >./config.json
+mv ./config.json /tmp/config.json
+
+if [ "${OVERRIDE_DEST}" = "disable" ]; then
+    sed -i "s|\"sniff_override_destination\": true|\"sniff_override_destination\": false|g" /tmp/config.json
 fi
 
-jq '.experimental.clash_api.default_mode |= "'"${CLASH_MODE}"'"' /tmp/config.json > ./config.json
-mv ./config.json /tmp/config.json
+if [ ! "${BLOCK_QUIC_443}" = "true" ]; then
+    jq 'del(.route.rules[1])' /tmp/config.json >./config.json
+    mv ./config.json /tmp/config.json
+fi
 
 cd /usr/bin
 

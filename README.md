@@ -11,13 +11,13 @@
 
 2. 可以启用 Cloudflared 隧道，以内网穿透模式接入 Cloudflare，可以使用 Cloudflare 支持的全部十多个端口。
 
-3. 支持 WARP 出站（需要已有的 WARP 配置文件）。启用 WARP 出站后，可以通过 CLASH_MODE 变量控制 chatgpt、bing、netflix、imgur 和 disney 是否分流到 WARP 出站。
+3. 支持 WARP 出站。可以通过 CLASH_MODE 变量控制 chatgpt、bing、netflix、disney、dazn、spotify 和 imgur 是否分流到 WARP 出站。
 
-3. 支持直接访问 .onion tor 网络域名（需要客户端使用 socks/http 代理方式或者 Fakeip/Fakedns 透明代理环境）。
+4. 支持直接访问 .onion tor 网络域名（需要客户端使用 socks/http 代理方式或者 Fakeip/Fakedns 透明代理环境）。
 
-4. 支持 WS-0RTT 降低延迟，Xray 核心客户端在 Websocket 路径后加上 ?ed=2048 即可启用。
+5. 支持 WS-0RTT 降低延迟，Xray 核心客户端在 Websocket 路径后加上 ?ed=2048 即可启用。
 
-5. 支持 Clash api，可以连接 [yacd 面板](https://github.com/haishanh/yacd)，选择 Direct / WARP /Tor 出站，启用/关闭分流功能，查看当前速度、连接、日志等信息。
+5. 支持 Clash api，可以连接 [yacd 面板](https://github.com/haishanh/yacd)，选择 Direct / WARP / Tor 出站，启用/关闭分流功能，查看当前速度、连接、日志等信息。
 
       <details>
       <summary>截图</summary>
@@ -108,7 +108,7 @@
  
  ![image](https://user-images.githubusercontent.com/98247050/212815611-c6fc58b3-9b90-40c3-8234-86e64226f821.png)
 
- 6. 点击 NEXT STEP，Ports 设置为 3000，按下文变量部分设置好需设定的变量。
+ 6. 点击 NEXT STEP，Ports 设置为 3000，按下文变量部分设置好需设定的变量。将 Startup Probe 和 Liveness Probe 端口设置为 3000，路径为 `/`。
  
  ![image](https://user-images.githubusercontent.com/98247050/212816360-0df56cbf-2f05-4bf6-b677-965d699e3e0b.png)
 
@@ -132,9 +132,10 @@
 | `SecretPATH` | `/mypath` | Websocket代理路径前缀，务必修改为不常见字符串 |
 | `PASSWORD` | `password` | Trojan 协议密码，务必修改为强密码。同时也是 Clash api 连接密钥 |
 | `ArgoJSON` |  | 可选，Cloudflared 隧道 JSON 文件，保持默认空值为禁用 Cloudflared 隧道 |
-| `WG_PRIVATE_KEY` |  | 可选，WARP 配置文件中 PrivateKey 值。保持默认空值为禁用 WARP 出站 |
-| `WG_PEER_PUBLIC_KEY` |  | 可选，WARP 配置文件中 Peer PublicKey 值 |
-| `CLASH_MODE` | `rule` | 可选，默认 "rule" 模式会开启自动分流功能，设置为 "direct" 将禁用分流功能 |
+| `OVERRIDE_DEST` |  | 可选，默认使用流量探测强制重新解析域名，保证 WARP 解锁效果并可以解决客户端 DNS 污染问题。但会造成 Tor 浏览器无法连接成功。设置为 `disable` 将禁用此功能 |
+| `BLOCK_QUIC_443` | `true` | 可选，默认禁止 443 端口 quic 流量，强制网页流量使用 TCP 协议 |
+| `WG_MTU` | `1408` | 可选，WireGuard MTU 值，如果 WARP 出站工作不正常，可尝试调整 |
+| `CLASH_MODE` | `rule` | 可选，默认 "rule" 模式会开启自动分流功能，设置为 `direct` 将禁用分流功能 |
 | `NodeStatus_DSN` |  | 可选，NodeStatus 探针服务端连接信息，保持默认空值为禁用。示例：wss://username:password@status.mydomain.com |
 
 ## 客户端相关设置
@@ -148,11 +149,11 @@
     ```
     # Vmess
     ${SecretPATH}/vm
-    # Vmess + WARP 出站
+    # Vmess + 全局 WARP 出站
     ${SecretPATH}/wgvm
     # Trojan
     ${SecretPATH}/tr
-    # Trojan + WARP 出站
+    # Trojan + 全局 WARP 出站
     ${SecretPATH}/wgtr
     ```
     为了减少特征，浏览器直接访问Websocket路径，会返回401而不是bad request。

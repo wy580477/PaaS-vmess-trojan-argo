@@ -20,20 +20,20 @@
             "required": false,
             "value": ""
         },
-        "ArgoDOMAIN": {
-            "description": "Argo tunnel Domain. Optional, if you don't want to use Argo tunnel, you can ignore this.",
+        "OVERRIDE_DEST": {
+            "description": "Optional. Force domain names to be re-resolved.",
             "required": false,
             "value": ""
         },
-        "WG_PRIVATE_KEY": {
-            "description": "Wireguard private key. Optional.",
+        "BLOCK_QUIC_443": {
+            "description": "Block QUIC traffic on port 443.",
             "required": false,
-            "value": ""
+            "value": "true"
         },
-        "WG_PEER_PUBLIC_KEY": {
-            "description": "Wireguard peer public key. Optional.",
+        "WG_MTU": {
+            "description": "Wireguard MTU.",
             "required": false,
-            "value": ""
+            "value": "1408"
         },
         "NodeStatus_DSN": {
             "description": "NodeStatus server address. Optional. Example: wss://username:password@status.mydomain.com",

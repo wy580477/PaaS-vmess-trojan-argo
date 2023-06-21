@@ -3,8 +3,9 @@
   SecretPATH = "/mypath"
   PASSWORD = "password"
   ArgoJSON = ""
-  WG_PRIVATE_KEY = ""
-  WG_PEER_PUBLIC_KEY = ""
+  OVERRIDE_DEST = ""
+  BLOCK_QUIC_443 = "true"
+  WG_MTU = "1408"
   CLASH_MODE = "rule"
   NodeStatus_DSN = ""
 
