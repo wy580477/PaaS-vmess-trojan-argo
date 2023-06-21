@@ -13,11 +13,24 @@
 
 3. 支持 WARP 出站。可以通过 CLASH_MODE 变量控制 chatgpt、bing、netflix、disney、dazn、spotify 和 imgur 是否分流到 WARP 出站。
 
+   <details>
+      <summary><b>WARP 解锁效果示例</b></summary>      
+      
+      美国 Heroku
+      
+      ![image](https://github.com/wy580477/PaaS-vmess-trojan-argo/assets/98247050/58788eef-6ee2-4560-938d-4ed397f8e263)
+      
+      爱尔兰 Heroku
+      
+      ![image](https://github.com/wy580477/PaaS-vmess-trojan-argo/assets/98247050/e369d18d-c4ab-49b2-b773-b3b125086834)
+      
+   </details>
+
 4. 支持直接访问 .onion tor 网络域名（需要客户端使用 socks/http 代理方式或者 Fakeip/Fakedns 透明代理环境）。
 
 5. 支持 WS-0RTT 降低延迟，Xray 核心客户端在 Websocket 路径后加上 ?ed=2048 即可启用。
 
-5. 支持 Clash api，可以连接 [yacd 面板](https://github.com/haishanh/yacd)，选择 Direct / WARP / Tor 出站，启用/关闭分流功能，查看当前速度、连接、日志等信息。
+6. 支持 Clash api，可以连接 [yacd 面板](https://github.com/haishanh/yacd)，选择 Direct / WARP / Tor 出站，启用/关闭分流功能，查看当前速度、连接、日志等信息。
 
       <details>
       <summary>截图</summary>
