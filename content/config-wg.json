@@ -16,6 +16,13 @@
     ],
     "rules": [
       {
+        "inbound": [
+          "vmess-wg",
+          "trojan-wg"
+        ],
+        "server": "warp-dns"
+      },
+      {
         "outbound": ["WARP"],
         "server": "warp-dns"
       }
@@ -74,7 +81,8 @@
         "path": "SecretPATH/wgvm",
         "max_early_data": 2048,
         "early_data_header_name": "Sec-WebSocket-Protocol"
-      }
+      },
+      "domain_strategy": "prefer_ipv6"
     },
     {
       "type": "trojan",
@@ -89,7 +97,8 @@
         "path": "SecretPATH/wgtr",
         "max_early_data": 2048,
         "early_data_header_name": "Sec-WebSocket-Protocol"
-      }
+      },
+      "domain_strategy": "prefer_ipv6"
     }
   ],
   "outbounds": [
@@ -153,7 +162,7 @@
       },
       {
         "inbound": ["vmess-wg", "trojan-wg"],
-        "outbound": "WARP",
+        "outbound": "warp",
         "clash_mode": "rule"
       },
       {
