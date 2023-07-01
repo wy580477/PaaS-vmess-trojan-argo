@@ -13,6 +13,8 @@
 
 3. 支持 WARP 出站。可以通过 CLASH_MODE 变量控制 chatgpt、bing、netflix、disney、dazn、spotify 和 imgur 是否分流到 WARP 出站。
 
+   修改 content/config-wg.json 文件 169 行，可自定义分流规则。
+
    <details>
       <summary><b>WARP 解锁效果示例</b></summary>      
       
