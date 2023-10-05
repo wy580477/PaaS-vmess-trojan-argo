@@ -3,13 +3,13 @@ set -e
 # install sing-box
 DIR_TMP="$(mktemp -d)"
 EXEC=$(echo $RANDOM | md5sum | head -c 4)
-busybox wget -O - 'https://github.com/SagerNet/sing-box/releases/download/v1.3.0/sing-box-1.3.0-linux-amd64.tar.gz' | busybox tar xz -C ${DIR_TMP}
+busybox wget -O - 'https://github.com/SagerNet/sing-box/releases/download/v1.5.1/sing-box-1.5.1-linux-amd64.tar.gz' | busybox tar xz -C ${DIR_TMP}
 install -m 755 ${DIR_TMP}/sing-box*/sing-box /usr/bin/app${EXEC}
 rm -rf ${DIR_TMP}
 
 # install cloudflared
 busybox wget -qO /usr/bin/argo https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
-chmod +x /usr/bin/argo 
+chmod +x /usr/bin/argo
 
 # generate warp config
 busybox wget -qO /usr/bin/warp-reg https://github.com/badafans/warp-reg/releases/download/v1.0/main-linux-amd64
